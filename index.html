@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Ikasi Euskara — De A1 a B2.2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--green:#009444;--green-d:#007a36;--green-l:#e6f6ec;--red:#e30613;--red-l:#ffe9ea;--ink:#16211a;--muted:#66766b;--bg:#f6f8f6;--card:#fff;--line:#dfe8e0;--yellow:#ffc800;--blue:#1cb0f6;--orange:#ff7a1a;--purple:#7c5cff;--sel:#e8f7ff;--dark-surface:#16211a}
+@media(prefers-color-scheme:dark){:root{--bg:#101612;--card:#1b261e;--ink:#eef4ef;--muted:#a9bbae;--line:#2c3f31;--green-l:#1e3d2a;--red-l:#3d1e20;--sel:#14405e}}
+*{box-sizing:border-box}body{margin:0;font-family:Nunito,system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-tap-highlight-color:transparent}button{font-family:inherit;cursor:pointer;min-height:48px}
+.topbar{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:2px solid var(--line);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:10px}.flag{width:42px;height:30px;border-radius:6px;overflow:hidden;flex-shrink:0;border:1px solid rgba(0,0,0,.1);display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;position:relative;background:#fff}.flag i{display:block}.flag i:nth-child(1){background:var(--red)}.flag i:nth-child(2){background:var(--green)}.flag i:nth-child(3){background:var(--green)}.flag i:nth-child(4){background:var(--red)}.flag:after{content:"";position:absolute;inset:0;background:linear-gradient(to right,transparent 44%,#fff 44%,#fff 56%,transparent 56%),linear-gradient(to bottom,transparent 38%,#fff 38%,#fff 62%,transparent 62%)}
+.logo b{font-family:"Baloo 2";font-size:22px;line-height:1}.logo span{display:block;font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.stats{display:flex;gap:8px}.pill{display:flex;align-items:center;gap:6px;background:var(--bg);border:2px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:900;font-size:15px}.pill.hearts{color:#e0245e}.pill.xp{color:#9a7400}.pill.streak{color:#e85d04}
+.wrap{max-width:720px;margin:0 auto;padding:18px 16px 90px}
+.hero{background:var(--dark-surface);color:#fff;border-radius:8px;padding:24px 20px;position:relative;overflow:hidden}
+.hero h1{margin:10px 0 0;font-family:"Baloo 2";font-size:36px;line-height:.95;max-width:520px}.hero h1 em{color:#7ee2a3;font-style:normal}
+.hero p{margin:10px 0 0;opacity:.92;font-weight:700;line-height:1.5;max-width:560px}
+.badge{display:inline-flex;background:var(--yellow);color:#3d2e00;font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border-radius:999px}
+.modeSwitch{margin-top:18px;background:rgba(255,255,255,.16);padding:5px;border-radius:999px;display:flex;gap:5px}.modeSwitch button{flex:1;border:0;border-radius:999px;background:transparent;color:#fff;font-weight:900;font-size:15px;padding:10px}.modeSwitch button.active{background:#fff;color:#16211a}
+.modeHint{margin-top:10px;font-size:13px;font-weight:800;opacity:.9}
+/* ROADMAP */
+.roadmap{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:16px}
+@media(max-width:600px){.roadmap{grid-template-columns:repeat(5,1fr);gap:5px}.roadmap b{font-size:13px!important}.roadmap span{display:none}}
+.rm{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:12px 10px;text-align:left}.rm b{font-size:18px;display:block}.rm span{font-size:12px;color:var(--muted);font-weight:800;line-height:1.3;display:block;margin-top:2px}.rm i{display:block;height:6px;background:var(--line);border-radius:99px;margin-top:10px;overflow:hidden}.rm i em{display:block;height:100%;background:var(--green)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 4px}.filters button{border:2px solid var(--line);background:var(--card);border-radius:999px;padding:9px 14px;font-weight:900;min-height:42px}.filters button.active{background:var(--dark-surface);color:#fff;border-color:var(--dark-surface)}
+/* LEVELS */
+.levelHead{margin:28px 0 12px;padding:18px;border-radius:8px;color:#fff;display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.levelHead h2{margin:0;font-family:"Baloo 2";font-size:26px;line-height:1}.levelHead p{margin:6px 0 0;font-weight:700;opacity:.92;line-height:1.4;font-size:14px}.levelHead .cnt{background:rgba(255,255,255,.22);padding:6px 10px;border-radius:999px;font-weight:900;white-space:nowrap;font-size:13px}
+.lessonGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.lessonGrid{grid-template-columns:1fr}}
+.lessonCard{background:var(--card);border:2px solid var(--line);border-bottom-width:4px;border-radius:16px;padding:16px;text-align:left;width:100%;display:flex;gap:14px;align-items:flex-start}
+.lessonCard:active{transform:translateY(2px)}
+.lIcon{width:56px;height:56px;border-radius:50%;color:#fff;display:grid;place-items:center;font-size:26px;flex-shrink:0;position:relative}
+.lessonCard.done .lIcon:after{content:"✓";position:absolute;right:-4px;top:-4px;width:22px;height:22px;background:var(--yellow);color:#6b4e00;border-radius:50%;display:grid;place-items:center;font-size:13px;border:2px solid var(--card)}
+.lessonCard b{font-size:17px;line-height:1.1;display:block}.lessonCard small{color:var(--muted);font-weight:800;line-height:1.35;display:block;margin-top:3px}
+.tag{display:inline-block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;font-weight:900;padding:4px 7px;border-radius:999px;background:var(--bg);border:1px solid var(--line);margin-top:8px;margin-right:4px}
+.grammarPreview{font-size:13px;font-weight:700;background:var(--green-l);border-radius:8px;padding:8px 10px;margin-top:10px;line-height:1.4}
+/* REF */
+.refGrid{display:grid;gap:12px;margin-top:14px}.refCard{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:16px;overflow:hidden}.refCard h3{margin:0 0 6px}.refCard p{color:var(--muted);font-weight:700;line-height:1.5;margin:0 0 12px}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:8px 6px;border-top:1px solid var(--line);text-align:left}th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.vocabGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}@media(max-width:560px){.vocabGrid{grid-template-columns:1fr}}
+.vocabCard{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:16px}.vocabCard h3{margin:0 0 4px;font-size:16px}.vocabCard .g{font-size:13px;color:var(--muted);font-weight:700;line-height:1.4;margin-bottom:8px}
+.wordRow{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line)}.wordRow b{font-size:15px}.wordRow span{color:var(--muted);font-weight:700;font-size:13px;text-align:right}
+.speakBtn{width:40px;height:40px;min-height:40px;border-radius:50%;border:2px solid var(--line);background:var(--bg);display:grid;place-items:center;font-size:16px;flex-shrink:0}
+.hidden{display:none!important}
+.lessonTop{display:flex;align-items:center;gap:12px;margin-bottom:14px}.closeBtn{width:44px;height:44px;border-radius:50%;border:2px solid var(--line);background:var(--card);font-size:20px;font-weight:900}.bar{flex:1;height:16px;background:var(--line);border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;background:var(--green);transition:.3s}.heartsRow{font-weight:900;color:#e0245e;white-space:nowrap}
+.introBox{background:#fff8d6;border:2px solid #ffe066;color:#5c4a00;border-radius:12px;padding:14px;font-weight:700;line-height:1.5;margin-bottom:18px}@media(prefers-color-scheme:dark){.introBox{background:#2e2a12;color:#ffe98a;border-color:#5a4d12}}
+.introBox b{display:block;font-size:15px;margin-bottom:4px}
+.qPrompt{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:900}.qMain{font-family:"Baloo 2";font-size:32px;line-height:1.1;margin:8px 0 6px}.qSub{color:var(--muted);font-weight:700;margin-bottom:18px;line-height:1.5}
+.bigWord{background:var(--card);border:2px solid var(--line);border-bottom-width:4px;border-radius:16px;padding:18px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.bigWord b{font-size:26px}
+.options{display:grid;gap:12px}.opt{width:100%;text-align:left;background:var(--card);border:2px solid var(--line);border-bottom-width:4px;border-radius:14px;padding:16px 18px;font-weight:800;font-size:17px;display:flex;align-items:center;gap:14px}.opt.selected{border-color:var(--blue);background:var(--sel)}.opt.correct{border-color:var(--green);background:var(--green-l)}.opt.wrong{border-color:var(--red);background:var(--red-l)}
+.swatch{width:32px;height:32px;border-radius:50%;border:2px solid rgba(0,0,0,.12);flex-shrink:0}.emojiBox{width:48px;height:48px;border-radius:10px;background:var(--bg);display:grid;place-items:center;font-size:26px;flex-shrink:0}
+body.kids .opt{font-size:19px;padding:19px}body.kids .qMain{font-size:38px}
+.matchGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.matchBtn{background:var(--card);border:2px solid var(--line);border-bottom-width:4px;border-radius:14px;padding:14px;font-weight:900;font-size:16px}.matchBtn.sel{border-color:var(--blue);background:var(--sel)}.matchBtn.ok{border-color:var(--green);background:var(--green-l);opacity:.6;pointer-events:none}.matchBtn.bad{border-color:var(--red);background:var(--red-l)}
+.feedback{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:18px 16px calc(18px + env(safe-area-inset-bottom));display:none}.feedback.show{display:block}.feedback.good{background:#d7ffb8;color:#1a5c00}.feedback.bad{background:#ffdfe0;color:#7a0a12}@media(prefers-color-scheme:dark){.feedback.good{background:#234d1e;color:#d7ffb8}.feedback.bad{background:#4d1e22;color:#ffdfe0}}
+.feedbackInner{max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px}.feedback b{font-size:20px;display:block}.feedback p{margin:2px 0 0;font-weight:700}
+.cta{border:0;border-radius:12px;padding:14px 22px;font-weight:900;font-size:16px;color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.18);white-space:nowrap}.cta.green{background:var(--green)}.cta.red{background:var(--red)}
+.checkBtn{width:100%;margin-top:20px;background:var(--green);color:#fff;border:0;border-radius:14px;padding:16px;font-weight:900;font-size:17px;box-shadow:0 4px 0 var(--green-d)}.checkBtn:disabled{opacity:.45;box-shadow:none}
+.resultCard{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:28px 20px;text-align:center;margin-top:20px}.resultCard h2{font-family:"Baloo 2";font-size:32px;margin:8px 0}.stars{font-size:36px;letter-spacing:6px;color:var(--yellow)}
+.xpBox{display:flex;gap:12px;justify-content:center;margin:18px 0;flex-wrap:wrap}.xpBox div{background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:12px 18px;min-width:110px}.xpBox b{font-size:22px;display:block}
+.tip{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:16px;font-weight:700;line-height:1.6;margin-top:20px}.footerNote{text-align:center;color:var(--muted);font-weight:700;font-size:13px;margin-top:28px;line-height:1.6}
+@media(max-width:560px){.topbar{padding:8px 10px;gap:8px}.logo b{font-size:18px;white-space:nowrap}.logo span{font-size:9px}.flag{width:34px;height:24px}.pill{padding:5px 8px;font-size:13px}.stats{gap:5px}.hero h1{font-size:30px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="logo"><div class="flag"><i></i><i></i><i></i><i></i></div><div><b>Ikasi Euskara</b><span>De A1 a B2.2 · Euskara batua</span></div></div>
+  <div class="stats"><div class="pill streak">🔥 <span id="streakVal">0</span></div><div class="pill xp">⭐ <span id="xpVal">0</span> XP</div><div class="pill hearts">❤️ <span id="heartsVal">5</span></div></div>
+</header>
+
+<main class="wrap">
+<section id="homeView">
+  <div class="hero">
+    <span class="badge">Camino completo · A1 → B2.2</span>
+    <h1>No solo palabras.<br><em>Verbos y estructuras</em> hasta el B2.2</h1>
+    <p>35 lecciones con recorrido real: saludarte y contar, sí, pero también conjugar IZAN y UKAN, hablar en pasado y futuro, comparar, poner condiciones y argumentar como pide el B2.2. Cada lección de gramática trae su explicación antes de practicar.</p>
+    <div class="modeSwitch"><button id="btnAdult" class="active" onclick="setMode('adult')">👨‍👩‍👧 Adultos</button><button id="btnKids" onclick="setMode('kids')">🧒 Niños</button></div>
+    <p class="modeHint" id="modeHint">Modo adultos: camino completo A1–B2.2 con gramática y verbos.</p>
+  </div>
+
+  <div class="roadmap" id="roadmap"></div>
+
+  <div class="filters" id="filters">
+    <button class="active" data-f="all" onclick="setFilter('all',this)">Todo el camino</button>
+    <button data-f="A1" onclick="setFilter('A1',this)">A1</button>
+    <button data-f="A2" onclick="setFilter('A2',this)">A2</button>
+    <button data-f="B1" onclick="setFilter('B1',this)">B1</button>
+    <button data-f="B2" onclick="setFilter('B2',this)">B2</button>
+    <button data-f="B2.2" onclick="setFilter('B2.2',this)">B2.2</button>
+    <button data-f="verbos" onclick="setFilter('verbos',this)">Solo verbos</button>
+    <button data-f="egiturak" onclick="setFilter('egiturak',this)">Solo estructuras</button>
+  </div>
+  <p style="color:var(--muted);font-weight:700;margin:6px 0 0" id="globalProgress">0 / 35 lecciones completadas</p>
+
+  <div id="levelsContainer"></div>
+
+  <h2 style="margin:36px 0 4px;font-family:'Baloo 2';font-size:26px">Aditzak · Los verbos que vas a dominar</h2>
+  <p style="color:var(--muted);font-weight:700;margin:0">El euskera se ordena por quién hace qué a quién. Esto es el mapa que se repite en todo el camino.</p>
+  <div class="refGrid">
+    <div class="refCard"><h3>El sistema en 10 segundos</h3><p><strong>NOR</strong> = solo sujeto: <em>Ni naiz</em> (yo soy). <strong>NOR–NORK</strong> = sujeto + objeto: <em>Nik liburua dut</em> (yo tengo el libro). <strong>NOR–NORI</strong> = a quién le gusta / le pasa: <em>Niri gustatzen zait</em>. <strong>NOR–NORI–NORK</strong> = dar algo a alguien: <em>Nik zuri eman dizut</em> (B2).</p>
+    <table><tr><th>Forma</th><th>IZAN · ser</th><th>UKAN · tener</th></tr>
+    <tr><td>Ni / Nik</td><td>naiz</td><td>dut</td></tr><tr><td>Zu / Zuk</td><td>zara</td><td>duzu</td></tr><tr><td>Hura / Hark</td><td>da</td><td>du</td></tr><tr><td>Gu / Guk</td><td>gara</td><td>dugu</td></tr><tr><td>Zuek</td><td>zarete</td><td>duzue</td></tr><tr><td>Haiek</td><td>dira</td><td>dute</td></tr></table></div>
+    <div class="refCard"><h3>Pasado que entra en B1</h3><p>IZAN pasado: <em>nintzen, zinen, zen, ginen, zineten, ziren</em>. UKAN pasado: <em>nuen, zenuen, zuen, genuen, zenuten, zuten</em>. Futuro: participio + <strong>-ko / -go</strong>: <em>etorriko naiz, egingo dut</em>.</p>
+    <table><tr><th>Estructura</th><th>Ejemplo</th><th>Nivel</th></tr>
+    <tr><td>Habitual -tzen</td><td>Egunero ikasten dut</td><td>A2</td></tr>
+    <tr><td>Comparativo -ago</td><td>Hau handiagoa da</td><td>B1</td></tr>
+    <tr><td>Condicional ba- / -ke</td><td>Banekike, balitz…</td><td>B2</td></tr>
+    <tr><td>Relativo -n / -ko</td><td>Atzo etorri zen gizona</td><td>B2</td></tr>
+    <tr><td>Indirecto -ela</td><td>Esan du etorriko dela</td><td>B2.2</td></tr>
+    <tr><td>Nominalización -tzea</td><td>Ikastea garrantzitsua da</td><td>B2.2</td></tr></table></div>
+  </div>
+
+  <h2 style="margin:34px 0 4px;font-family:'Baloo 2';font-size:26px">Consulta rápida</h2>
+  <p style="color:var(--muted);font-weight:700;margin:0">Todas las palabras, verbos y frases del nivel que estás viendo. Toca 🔊 para escuchar.</p>
+  <div class="vocabGrid" id="vocabGrid"></div>
+
+  <!-- FIREBASE: amigos y clasificación -->
+  <h2 style="margin:34px 0 4px;font-family:'Baloo 2';font-size:26px">Lagunak</h2>
+  <p style="color:var(--muted);font-weight:700;margin:0">Amigos: comparte tu código y añade a los tuyos con el suyo.</p>
+  <div class="refGrid">
+    <div class="refCard">
+      <h3>Tu perfil</h3>
+      <p id="fbStatus" style="margin-bottom:8px">Conectando…</p>
+      <p style="margin-bottom:6px">Tu apodo: <strong id="fbMyName">—</strong></p>
+      <p style="margin-bottom:12px">Tu código de amigo: <strong id="fbMyCode" style="letter-spacing:.12em">—</strong></p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input id="fbCodeInput" type="text" maxlength="6" placeholder="Código de tu amigo" autocomplete="off" autocapitalize="characters" style="flex:1;min-width:160px;padding:12px;border:2px solid var(--line);border-radius:12px;font:inherit;font-weight:800;background:var(--card);color:var(--ink);text-transform:uppercase"/>
+        <button class="cta green" onclick="fbAddFriend()">Añadir</button>
+      </div>
+      <p id="fbMsg" style="margin:10px 0 0"></p>
+      <h3 style="margin-top:18px">Tus amigos</h3>
+      <div id="fbFriendsList"><p style="margin:0">Todavía no tienes amigos. Pide a un amigo su código y añádelo arriba.</p></div>
+    </div>
+  </div>
+
+  <h2 style="margin:34px 0 4px;font-family:'Baloo 2';font-size:26px">Sailkapena</h2>
+  <p style="color:var(--muted);font-weight:700;margin:0">Clasificación semanal: quién suma más XP esta semana.</p>
+  <div class="refGrid">
+    <div class="refCard">
+      <h3>Esta semana · <span id="fbWeekLabel"></span></h3>
+      <div id="fbRankList"></div>
+      <p id="fbRankInvite" style="margin:12px 0 0">Añade amigos con su código para competir en la clasificación semanal.</p>
+    </div>
+  </div>
+  <!-- /FIREBASE: amigos y clasificación -->
+
+  <div class="tip"><strong>Cómo se avanza:</strong> termina A1 antes de saltar a B1 si empiezas de cero, pero puedes entrar en cualquier lección para repasar un verbo concreto. Cada lección vale 60 XP: traducción, escucha, completar la frase con la forma correcta y emparejar. En B2 y B2.2 los ejercicios de completar son de examen: condicional, relativo e indirecto.<br><br><strong>Amigos y clasificación:</strong> ya están disponibles con Firebase. Elige tu apodo, añade amigos con su código y compite en la clasificación semanal.</div>
+  <p class="footerNote">Euskara batua · Camino A1, A2, B1, B2 y B2.2<br>Hecho para practicar en familia: Raúl, Mari y Máel.</p>
+</section>
+
+<section id="lessonView" class="hidden">
+  <div class="lessonTop"><button class="closeBtn" onclick="exitLesson()" aria-label="Salir">✕</button><div class="bar"><i id="lessonBar" style="width:0%"></i></div><div class="heartsRow">❤️ <span id="lessonHearts">5</span></div></div>
+  <div id="lessonIntro"></div>
+  <div id="exerciseArea"></div>
+  <button id="checkBtn" class="checkBtn" onclick="checkAnswer()" disabled>Comprobar</button>
+</section>
+
+<section id="resultView" class="hidden">
+  <div class="resultCard"><div style="font-size:56px">🏆</div><div class="stars" id="resultStars">★★★</div><h2 id="resultTitle">¡Lección completada!</h2><p id="resultSub" style="color:var(--muted);font-weight:700;line-height:1.5"></p><div class="xpBox"><div><span style="font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:900">XP ganados</span><b id="resultXP">+60</b></div><div><span style="font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:900">Aciertos</span><b id="resultAcc">6 / 6</b></div><div><span style="font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:900">Nivel</span><b id="resultLevel">A1</b></div></div>
+  <button class="cta green" style="width:100%" onclick="backHome()">Seguir en el camino</button>
+  <button class="cta" style="width:100%;margin-top:10px;background:var(--card);color:var(--ink);border:2px solid var(--line);box-shadow:none" onclick="retryLesson()">Repetir lección</button></div>
+</section>
+</main>
+<div id="feedback" class="feedback"><div class="feedbackInner"><div><b id="fbTitle">¡Correcto!</b><p id="fbText"></p></div><button class="cta green" id="fbBtn" onclick="nextExercise()">Continuar</button></div></div>
+
+<script>
+const LEVELS=[
+ {id:"A1",name:"A1 · Hasiera",desc:"Sobrevivir: saludar, presentarte, contar y decir quién eres. Aquí nace IZAN.",color:"#009444"},
+ {id:"A2",name:"A2 · Egunerokoa",desc:"Vida diaria: tener, comer, rutinas, gustos y preguntas. Entran UKAN y NOR–NORI.",color:"#1cb0f6"},
+ {id:"B1",name:"B1 · Moldatu",desc:"Desenvolverte: pasado, futuro, casos y comparaciones. Ya cuentas qué pasó ayer.",color:"#ff7a1a"},
+ {id:"B2",name:"B2 · Argudiatu",desc:"Argumentar: poder / deber, condicional, finalidad y relativas. Frases largas y precisas.",color:"#8b5cf6"},
+ {id:"B2.2",name:"B2.2 · Azterketa maila",desc:"Nivel de examen B2.2: estilo indirecto, nominalizaciones, conectores y simulacro mixto.",color:"#111827"}
+];
+const L={
+ saludos:{level:"A1",type:"vocab",title:"Agurrak",es:"Saludos",color:"#009444",icon:"👋",grammar:"Saludos de cada día. Gabon es buenas noches al llegar y al irte.",words:[{eu:"Kaixo",es:"Hola",emoji:"👋"},{eu:"Egun on",es:"Buenos días",emoji:"🌅"},{eu:"Arratsalde on",es:"Buenas tardes",emoji:"🌇"},{eu:"Gabon",es:"Buenas noches",emoji:"🌙"},{eu:"Agur",es:"Adiós",emoji:"👋"},{eu:"Eskerrik asko",es:"Muchas gracias",emoji:"🙏"},{eu:"Mesedez",es:"Por favor",emoji:"✨"},{eu:"Zer moduz?",es:"¿Cómo estás?",emoji:"💬"},{eu:"Ondo, eskerrik asko",es:"Bien, gracias",emoji:"😊"},{eu:"Bihar arte",es:"Hasta mañana",emoji:"📅"}]},
+ numeros:{level:"A1",type:"vocab",title:"Zenbakiak",es:"Números 1–20",color:"#1cb0f6",icon:"🔢",grammar:"Sistema vigesimal: 20 = hogei. 11 hamaika, 12 hamabi… se forman con hamar + número.",words:[{eu:"Bat",es:"Uno · 1",emoji:"1️⃣"},{eu:"Bi",es:"Dos · 2",emoji:"2️⃣"},{eu:"Hiru",es:"Tres · 3",emoji:"3️⃣"},{eu:"Lau",es:"Cuatro · 4",emoji:"4️⃣"},{eu:"Bost",es:"Cinco · 5",emoji:"5️⃣"},{eu:"Sei",es:"Seis · 6",emoji:"6️⃣"},{eu:"Zazpi",es:"Siete · 7",emoji:"7️⃣"},{eu:"Zortzi",es:"Ocho · 8",emoji:"8️⃣"},{eu:"Bederatzi",es:"Nueve · 9",emoji:"9️⃣"},{eu:"Hamar",es:"Diez · 10",emoji:"🔟"},{eu:"Hamaika",es:"Once · 11",emoji:"🔢"},{eu:"Hogei",es:"Veinte · 20",emoji:"🔢"}]},
+ colores:{level:"A1",type:"vocab",title:"Koloreak",es:"Colores",color:"#ff7a1a",icon:"🎨",grammar:"El adjetivo va detrás y lleva -a: etxe gorria = la casa roja.",words:[{eu:"Gorria",es:"Rojo",emoji:"🔴",hex:"#e30613"},{eu:"Urdina",es:"Azul",emoji:"🔵",hex:"#2563eb"},{eu:"Berdea",es:"Verde",emoji:"🟢",hex:"#16a34a"},{eu:"Horia",es:"Amarillo",emoji:"🟡",hex:"#facc15"},{eu:"Beltza",es:"Negro",emoji:"⚫",hex:"#111827"},{eu:"Zuria",es:"Blanco",emoji:"⚪",hex:"#f8fafc"},{eu:"Laranja",es:"Naranja",emoji:"🟠",hex:"#f97316"},{eu:"Arrosa",es:"Rosa",emoji:"🌸",hex:"#f9a8d4"},{eu:"Morea",es:"Morado",emoji:"🟣",hex:"#7c3aed"},{eu:"Grisa",es:"Gris",emoji:"⬜",hex:"#9ca3af"}]},
+ familia:{level:"A1",type:"vocab",title:"Familia",es:"La familia",color:"#e0245e",icon:"👨‍👩‍👦",grammar:"Con -a al final ya es definido: ama = la madre. Nire ama = mi madre.",words:[{eu:"Ama",es:"Madre / mamá",emoji:"👩"},{eu:"Aita",es:"Padre / papá",emoji:"👨"},{eu:"Semea",es:"Hijo",emoji:"👦"},{eu:"Alaba",es:"Hija",emoji:"👧"},{eu:"Aitona",es:"Abuelo",emoji:"👴"},{eu:"Amona",es:"Abuela",emoji:"👵"},{eu:"Anaia",es:"Hermano (de chico)",emoji:"🧑"},{eu:"Arreba",es:"Hermana (de chico)",emoji:"👧"},{eu:"Neba",es:"Hermano (de chica)",emoji:"🧑"},{eu:"Ahizpa",es:"Hermana (de chica)",emoji:"👩"}]},
+ aurkezpena:{level:"A1",type:"egitura",title:"Aurkezpena",es:"Presentarse · frases",color:"#0ea5a4",icon:"🙋",grammar:"Estructura: Ni + nombre + naiz. Nire izena … da. Non bizi zara? → Gasteizen bizi naiz. -n = en.",words:[{eu:"Ni Raúl naiz",es:"Yo soy Raúl",emoji:"🙋"},{eu:"Nire izena Mari da",es:"Mi nombre es Mari",emoji:"🏷️"},{eu:"Gasteizen bizi naiz",es:"Vivo en Vitoria",emoji:"🏠"},{eu:"Non bizi zara?",es:"¿Dónde vives?",emoji:"❓"},{eu:"Zein da zure izena?",es:"¿Cuál es tu nombre?",emoji:"❓"},{eu:"Urte dut",es:"Tengo … años (con número delante)",emoji:"🎂"},{eu:"Pozten naiz zu ezagutzeaz",es:"Encantado de conocerte",emoji:"🤝"},{eu:"Euskal Herrikoa naiz",es:"Soy del País Vasco",emoji:"🗺️"}],fills:[{s:"Ni Máel ___ .",opts:["naiz","zara","da","gara"],ans:"naiz",es:"Yo soy Máel"},{s:"Nire izena Raúl ___ .",opts:["da","naiz","du","dut"],ans:"da",es:"Mi nombre es Raúl"},{s:"Non bizi ___ ?",opts:["zara","naiz","da","dira"],ans:"zara",es:"¿Dónde vives (tú)?"}]},
+ izan:{level:"A1",type:"verbos",title:"IZAN aditza",es:"Verbo IZAN · ser / estar",color:"#009444",icon:"⭐",grammar:"IZAN es NOR: solo importa quién es. Ni naiz, zu zara, hura da, gu gara, zuek zarete, haiek dira. Es el verbo más importante del A1.",words:[{eu:"Ni naiz",es:"Yo soy / estoy",emoji:"1️⃣"},{eu:"Zu zara",es:"Tú eres / estás",emoji:"2️⃣"},{eu:"Hura da",es:"Él / ella es",emoji:"3️⃣"},{eu:"Gu gara",es:"Nosotros somos",emoji:"👥"},{eu:"Zuek zarete",es:"Vosotros sois",emoji:"👥"},{eu:"Haiek dira",es:"Ellos son",emoji:"👥"},{eu:"Ni irakaslea naiz",es:"Yo soy profesor",emoji:"👨‍🏫"},{eu:"Zu nekatuta zaude*",es:"Tú estás cansado (*egon)",emoji:"😴"}],fills:[{s:"Gu ___ .",opts:["gara","da","naiz","dira"],ans:"gara",es:"Nosotros somos"},{s:"Haiek ikasleak ___ .",opts:["dira","da","gara","zara"],ans:"dira",es:"Ellos son alumnos"},{s:"Hura medikua ___ .",opts:["da","naiz","dira","du"],ans:"da",es:"Él es médico"}]},
+ etxea:{level:"A1",type:"vocab",title:"Etxea",es:"La casa · refuerzo A1",color:"#65a30d",icon:"🏠",grammar:"Refuerzo A1 con IZAN: singular = da, plural = dira. Hau nire etxea da (esta es mi casa). La negación va con ez delante del verbo: Hau ez da nire logela. El adjetivo va detrás: sukalde handia, aulki txikia.",words:[{eu:"Etxea",es:"La casa",emoji:"🏠"},{eu:"Sukaldea",es:"La cocina",emoji:"🍳"},{eu:"Logela",es:"El dormitorio",emoji:"🛏️"},{eu:"Bainugela",es:"El cuarto de baño",emoji:"🚿"},{eu:"Egongela",es:"El salón",emoji:"🛋️"},{eu:"Mahaia",es:"La mesa",emoji:"🍽️"},{eu:"Aulkia",es:"La silla",emoji:"🪑"},{eu:"Ohea",es:"La cama",emoji:"🛌"},{eu:"Atea",es:"La puerta",emoji:"🚪"},{eu:"Leihoa",es:"La ventana",emoji:"🪟"},{eu:"Horma",es:"La pared",emoji:"🧱"},{eu:"Zorua",es:"El suelo",emoji:"🟫"},{eu:"Mahaia handia da",es:"La mesa es grande",emoji:"🍽️"},{eu:"Aulkia txikia da",es:"La silla es pequeña",emoji:"🪑"}],fills:[{s:"Hau nire etxea ___ .",opts:["da","dira","naiz","dut"],ans:"da",es:"Esta es mi casa"},{s:"Sukaldea handia ___ .",opts:["da","dira","gara","du"],ans:"da",es:"La cocina es grande"},{s:"Ateak handiak ___ .",opts:["dira","da","gara","naiz"],ans:"dira",es:"Las puertas son grandes"},{s:"Hau ez ___ nire logela.",opts:["da","dira","naiz","zara"],ans:"da",es:"Este no es mi dormitorio"},{s:"Mahaia handia ___ .",opts:["da","dira","naiz","dut"],ans:"da",es:"La mesa es grande"},{s:"Aulkia txikia ___ .",opts:["da","dira","gara","du"],ans:"da",es:"La silla es pequeña"}]},
+ gorputza:{level:"A1",type:"vocab",title:"Gorputza",es:"El cuerpo · refuerzo A1",color:"#db2777",icon:"🧍",grammar:"Refuerzo A1 con IZAN: una parte = da, dos o más = dira. Begiak handiak dira (los ojos son grandes). Con nire (mi) presentas tu cuerpo: Hau nire burua da. La negación: Hau ez da nire oina.",words:[{eu:"Burua",es:"La cabeza",emoji:"🗣️"},{eu:"Aurpegia",es:"La cara",emoji:"😊"},{eu:"Begia",es:"El ojo",emoji:"👁️"},{eu:"Sudurra",es:"La nariz",emoji:"👃"},{eu:"Ahoa",es:"La boca",emoji:"👄"},{eu:"Belarria",es:"La oreja",emoji:"👂"},{eu:"Ilea",es:"El pelo",emoji:"🦱"},{eu:"Eskua",es:"La mano",emoji:"✋"},{eu:"Besoa",es:"El brazo",emoji:"💪"},{eu:"Hanka",es:"La pierna",emoji:"🦵"},{eu:"Oina",es:"El pie",emoji:"🦶"},{eu:"Hatza",es:"El dedo",emoji:"👆"},{eu:"Eskua txikia da",es:"La mano es pequeña",emoji:"✋"}],fills:[{s:"Hau nire burua ___ .",opts:["da","dira","naiz","dut"],ans:"da",es:"Esta es mi cabeza"},{s:"Begiak handiak ___ .",opts:["dira","da","gara","duzu"],ans:"dira",es:"Los ojos son grandes"},{s:"Nire ilea beltza ___ .",opts:["da","dira","naiz","gara"],ans:"da",es:"Mi pelo es negro"},{s:"Hau ez ___ nire oina.",opts:["da","dira","zara","dut"],ans:"da",es:"Este no es mi pie"},{s:"Eskua txikia ___ .",opts:["da","dira","naiz","dut"],ans:"da",es:"La mano es pequeña"}]},
+ zenbakiak21:{level:"A1",type:"vocab",title:"Zenbakiak 21–100",es:"Números 21–100 · refuerzo A1",color:"#0891b2",icon:"🔢",grammar:"Refuerzo A1: el sistema es vigesimal. 20 = hogei es la base: 21 hogeita bat (20 y 1), 30 hogeita hamar (20 y 10), 40 berrogei (2 × 20), 50 berrogeita hamar, 60 hirurogei (3 × 20), 70 hirurogeita hamar, 80 laurogei (4 × 20), 90 laurogeita hamar y 100 ehun. Para decir tu edad o contar cosas: Hogeita bat urte ditut, Berrogei liburu ditut.",words:[{eu:"Hogeita bat",es:"Veintiuno · 21",emoji:"🔢"},{eu:"Hogeita bi",es:"Veintidós · 22",emoji:"🔢"},{eu:"Hogeita bost",es:"Veinticinco · 25",emoji:"🔢"},{eu:"Hogeita hamar",es:"Treinta · 30",emoji:"🔢"},{eu:"Hogeita hamahiru",es:"Treinta y tres · 33",emoji:"🔢"},{eu:"Berrogei",es:"Cuarenta · 40",emoji:"🔢"},{eu:"Berrogeita hamar",es:"Cincuenta · 50",emoji:"🔢"},{eu:"Hirurogei",es:"Sesenta · 60",emoji:"🔢"},{eu:"Hirurogeita hamar",es:"Setenta · 70",emoji:"🔢"},{eu:"Laurogei",es:"Ochenta · 80",emoji:"🔢"},{eu:"Laurogeita hamar",es:"Noventa · 90",emoji:"🔢"},{eu:"Ehun",es:"Cien · 100",emoji:"💯"},{eu:"Hogeita bat urte ditut",es:"Tengo veintiún años",emoji:"🎂"},{eu:"Berrogei liburu ditut",es:"Tengo cuarenta libros",emoji:"📚"},{eu:"Ehun euro ditut",es:"Tengo cien euros",emoji:"💶"}],fills:[{s:"Hogeita ___ urte ditut.",opts:["bat","bi","bost","hamar"],ans:"bat",es:"Tengo veintiún años"},{s:"___ liburu ditut.",opts:["Berrogei","Hogei","Ehun","Hamar"],ans:"Berrogei",es:"Tengo cuarenta libros"},{s:"Ehun ___ ditut.",opts:["euro","urte","liburu","etxe"],ans:"euro",es:"Tengo cien euros"},{s:"Hogeita ___ ikasle gara.",opts:["hamar","bat","bost","bi"],ans:"hamar",es:"Somos treinta alumnos"},{s:"___ euro ditut.",opts:["Laurogeita hamar","Hogei","Bat","Bi"],ans:"Laurogeita hamar",es:"Tengo noventa euros"},{s:"Hirurogeita ___ urte ditut.",opts:["hamar","bat","bi","bost"],ans:"hamar",es:"Tengo setenta años"}]},
+ eguraldia:{level:"A1",type:"vocab",title:"Eguraldia",es:"El tiempo · refuerzo A1",color:"#0284c7",icon:"🌤️",grammar:"Refuerzo A1 para hablar del tiempo: Gaur eguzkia dago (hoy hay sol), Euria ari du (está lloviendo), Hotza egiten du (hace frío) y Beroa egiten du (hace calor). Con IZAN describes: Elurra zuria da (la nieve es blanca). Dago = hay / está para el tiempo.",words:[{eu:"Eguraldia",es:"El tiempo (atmosférico)",emoji:"🌤️"},{eu:"Eguzkia",es:"El sol",emoji:"☀️"},{eu:"Euria",es:"La lluvia",emoji:"🌧️"},{eu:"Elurra",es:"La nieve",emoji:"❄️"},{eu:"Haizea",es:"El viento",emoji:"🌬️"},{eu:"Hodeia",es:"La nube",emoji:"☁️"},{eu:"Hotza",es:"El frío",emoji:"🥶"},{eu:"Beroa",es:"El calor",emoji:"🥵"},{eu:"Lainoa",es:"La niebla",emoji:"🌫️"},{eu:"Ekaitza",es:"La tormenta",emoji:"⛈️"},{eu:"Ostadarra",es:"El arcoíris",emoji:"🌈"},{eu:"Tenperatura",es:"La temperatura",emoji:"🌡️"},{eu:"Gaur eguzkia dago",es:"Hoy hay sol",emoji:"☀️"},{eu:"Euria ari du",es:"Está lloviendo",emoji:"🌧️"},{eu:"Elurra zuria da",es:"La nieve es blanca",emoji:"❄️"},{eu:"Hotza egiten du",es:"Hace frío",emoji:"🥶"},{eu:"Beroa egiten du",es:"Hace calor",emoji:"🥵"}],fills:[{s:"Gaur eguzkia ___ .",opts:["dago","da","dut","naiz"],ans:"dago",es:"Hoy hay sol"},{s:"Euria ___ du.",opts:["ari","da","dago","dut"],ans:"ari",es:"Está lloviendo"},{s:"Elurra zuria ___ .",opts:["da","dira","dago","dut"],ans:"da",es:"La nieve es blanca"},{s:"Hotza ___ du.",opts:["egiten","da","dago","ari"],ans:"egiten",es:"Hace frío"},{s:"Beroa ___ du.",opts:["egiten","da","dira","naiz"],ans:"egiten",es:"Hace calor"},{s:"Gaur haizea ___ .",opts:["dago","da","dut","naiz"],ans:"dago",es:"Hoy hay viento"}]},
+ denboralibrea:{level:"A1",type:"vocab",title:"Denbora libre",es:"El tiempo libre · refuerzo A1",color:"#0d9488",icon:"🎵",grammar:"Refuerzo A1 sobre el tiempo libre: el presente habitual se hace con -tzen / -ten + auxiliar: musika entzuten dut (escucho música), kirola egiten dut (hago deporte). Con verbos de movimiento va IZAN: mendira joaten naiz. -ra = a (mendira, zinemara) y -kin = con (lagunekin = con los amigos).",words:[{eu:"Denbora librea",es:"El tiempo libre",emoji:"🕒"},{eu:"Kirola",es:"El deporte",emoji:"⚽"},{eu:"Musika",es:"La música",emoji:"🎵"},{eu:"Abestia",es:"La canción",emoji:"🎤"},{eu:"Telebista",es:"La televisión",emoji:"📺"},{eu:"Zinema",es:"El cine",emoji:"🎬"},{eu:"Dantza",es:"El baile",emoji:"💃"},{eu:"Mendia",es:"La montaña",emoji:"⛰️"},{eu:"Lagunak",es:"Los amigos",emoji:"👥"},{eu:"Jolastu",es:"Jugar",emoji:"🎲"},{eu:"Ibili",es:"Andar",emoji:"🚶"},{eu:"Margotu",es:"Pintar",emoji:"🎨"},{eu:"Nire denbora librean musika entzuten dut",es:"En mi tiempo libre escucho música",emoji:"🎵"},{eu:"Asteburuan mendira joaten naiz",es:"El fin de semana voy a la montaña",emoji:"⛰️"},{eu:"Lagunekin jolasten dut",es:"Juego con mis amigos",emoji:"👥"},{eu:"Abesti bat entzuten dut",es:"Escucho una canción",emoji:"🎤"},{eu:"Kirola egiten dut astean bi aldiz",es:"Hago deporte dos veces a la semana",emoji:"⚽"},{eu:"Zinemara joaten gara ostiralean",es:"Vamos al cine el viernes",emoji:"🎬"}],fills:[{s:"Nire denbora librean musika ___ dut.",opts:["entzuten","egiten","jolasten","margotzen"],ans:"entzuten",es:"En mi tiempo libre escucho música"},{s:"Asteburuan mendira ___ naiz.",opts:["joaten","entzuten","jolasten","ikasten"],ans:"joaten",es:"El fin de semana voy a la montaña"},{s:"Lagunekin ___ dut.",opts:["jolasten","entzuten","egiten","margotzen"],ans:"jolasten",es:"Juego con mis amigos"},{s:"Abesti bat ___ dut.",opts:["entzuten","egiten","jolasten","ibili"],ans:"entzuten",es:"Escucho una canción"},{s:"Kirola ___ dut astean bi aldiz.",opts:["egiten","entzuten","jolasten","joaten"],ans:"egiten",es:"Hago deporte dos veces a la semana"},{s:"Zinemara ___ gara ostiralean.",opts:["joaten","entzuten","egiten","ikasten"],ans:"joaten",es:"Vamos al cine el viernes"}]},
+ eskola:{level:"A1",type:"vocab",title:"Eskola",es:"La escuela · refuerzo A1",color:"#2563eb",icon:"🏫",grammar:"Refuerzo A1 con la escuela: -n = en (ikasgelan = en el aula, eskolan = en la escuela, mahaian = sobre la mesa). Para estar en un sitio se usa EGON: nago (yo estoy), dago (él / ella está). IZAN describe cómo es algo: irakaslea ona da, motxila gorria da. Con UKAN, ditut = tengo (varias cosas): Boligrafoa eta lapitza ditut.",words:[{eu:"Eskola",es:"La escuela",emoji:"🏫"},{eu:"Ikasgela",es:"El aula",emoji:"📚"},{eu:"Irakaslea",es:"El profesor / la profesora",emoji:"🧑‍🏫"},{eu:"Ikaslea",es:"El alumno / la alumna",emoji:"🧑‍🎓"},{eu:"Liburua",es:"El libro",emoji:"📖"},{eu:"Koadernoa",es:"El cuaderno",emoji:"📓"},{eu:"Boligrafoa",es:"El bolígrafo",emoji:"🖊️"},{eu:"Lapitza",es:"El lápiz",emoji:"✏️"},{eu:"Mahaia",es:"La mesa",emoji:"🍽️"},{eu:"Aulkia",es:"La silla",emoji:"🪑"},{eu:"Arbela",es:"La pizarra",emoji:"📋"},{eu:"Motxila",es:"La mochila",emoji:"🎒"},{eu:"Ikasgelan nago",es:"Estoy en el aula",emoji:"📚"},{eu:"Irakaslea ona da",es:"La profesora es buena",emoji:"🧑‍🏫"},{eu:"Motxila gorria da",es:"La mochila es roja",emoji:"🎒"},{eu:"Liburua mahaian dago",es:"El libro está sobre la mesa",emoji:"📖"},{eu:"Boligrafoa eta lapitza ditut",es:"Tengo un bolígrafo y un lápiz",emoji:"🖊️"},{eu:"Eskolan ikasten dut",es:"En la escuela aprendo",emoji:"🏫"}],fills:[{s:"Ikasgelan ___ .",opts:["nago","da","dut","gara"],ans:"nago",es:"Estoy en el aula"},{s:"Irakaslea ona ___ .",opts:["da","dira","naiz","dut"],ans:"da",es:"La profesora es buena"},{s:"Motxila gorria ___ .",opts:["da","dira","nago","dut"],ans:"da",es:"La mochila es roja"},{s:"Liburua mahaian ___ .",opts:["dago","da","dut","naiz"],ans:"dago",es:"El libro está sobre la mesa"},{s:"Boligrafoa eta lapitza ___ .",opts:["ditut","dut","da","dago"],ans:"ditut",es:"Tengo un bolígrafo y un lápiz"},{s:"Eskolan ___ dut.",opts:["ikasten","entzuten","jolasten","egiten"],ans:"ikasten",es:"En la escuela aprendo"}]},
+ arropa:{level:"A1",type:"vocab",title:"Arropa",es:"La ropa · refuerzo A1",color:"#e11d48",icon:"👕",grammar:"Refuerzo A1 con la ropa: con IZAN describes el color: singular = da (jaka gorria da), plural = dira (prakak urdinak dira). Con UKAN: dut = tengo una cosa, ditut = tengo varias cosas (zapata berriak ditut). Gustatzen zait = me gusta.",words:[{eu:"Alkandora",es:"Camisa",emoji:"👔"},{eu:"Prakak",es:"Pantalones",emoji:"👖"},{eu:"Gona",es:"Falda",emoji:"👗"},{eu:"Jertsea",es:"Jersey",emoji:"🧶"},{eu:"Jaka",es:"Chaqueta",emoji:"🧥"},{eu:"Zapata",es:"Zapato",emoji:"👞"},{eu:"Galtzerdiak",es:"Calcetines",emoji:"🧦"},{eu:"Txapela",es:"Boina / gorra",emoji:"🧢"},{eu:"Kamiseta",es:"Camiseta",emoji:"👕"},{eu:"Galtza motzak",es:"Pantalones cortos",emoji:"🩳"},{eu:"Berokia",es:"Abrigo",emoji:"🧥"},{eu:"Bufanda",es:"Bufanda",emoji:"🧣"},{eu:"Jaka gorria da",es:"La chaqueta es roja",emoji:"🧥"},{eu:"Zapata berriak ditut",es:"Tengo zapatos nuevos",emoji:"👞"},{eu:"Gaur berokia jantzi dut",es:"Hoy me he puesto el abrigo",emoji:"🧥"},{eu:"Prakak urdinak dira",es:"Los pantalones son azules",emoji:"👖"},{eu:"Kamiseta zuria gustatzen zait",es:"Me gusta la camiseta blanca",emoji:"👕"},{eu:"Txapela buruan dut",es:"Llevo la boina en la cabeza",emoji:"🧢"}],fills:[{s:"Jaka gorria ___ .",opts:["da","dira","dut","naiz"],ans:"da",es:"La chaqueta es roja"},{s:"Zapata berriak ___ .",opts:["ditut","dut","da","dira"],ans:"ditut",es:"Tengo zapatos nuevos"},{s:"Gaur berokia ___ dut.",opts:["jantzi","entzuten","jolasten","ikasten"],ans:"jantzi",es:"Hoy me he puesto el abrigo"},{s:"Prakak urdinak ___ .",opts:["dira","da","dut","naiz"],ans:"dira",es:"Los pantalones son azules"},{s:"Kamiseta zuria gustatzen ___ .",opts:["zait","zaizu","dut","da"],ans:"zait",es:"Me gusta la camiseta blanca"},{s:"Txapela buruan ___ .",opts:["dut","ditut","da","dira"],ans:"dut",es:"Llevo la boina en la cabeza"}]},
+ urtaroak:{level:"A1",type:"vocab",title:"Urtaroak eta hilabeteak",es:"Las estaciones y los meses · refuerzo A1",color:"#059669",icon:"🍂",grammar:"Refuerzo A1 con las estaciones y los meses: -n = en (udan = en verano, neguan = en invierno, udaberrian = en primavera, udazkenean = en otoño). Para el tiempo se usa egiten du: bero egiten du (hace calor), hotz egiten du (hace frío). Los meses se escriben en minúscula en euskera.",words:[{eu:"Udaberria",es:"Primavera",emoji:"🌸"},{eu:"Uda",es:"Verano",emoji:"☀️"},{eu:"Udazkena",es:"Otoño",emoji:"🍂"},{eu:"Negua",es:"Invierno",emoji:"❄️"},{eu:"Urtarrila",es:"Enero",emoji:"📅"},{eu:"Otsaila",es:"Febrero",emoji:"📅"},{eu:"Martxoa",es:"Marzo",emoji:"📅"},{eu:"Apirila",es:"Abril",emoji:"📅"},{eu:"Maiatza",es:"Mayo",emoji:"📅"},{eu:"Ekaina",es:"Junio",emoji:"📅"},{eu:"Uztaila",es:"Julio",emoji:"📅"},{eu:"Abuztua",es:"Agosto",emoji:"📅"},{eu:"Udan bero egiten du",es:"En verano hace calor",emoji:"☀️"},{eu:"Neguan hotz egiten du",es:"En invierno hace frío",emoji:"❄️"},{eu:"Udaberrian loreak daude",es:"En primavera hay flores",emoji:"🌸"},{eu:"Urtarrila urteko lehen hilabetea da",es:"Enero es el primer mes del año",emoji:"📅"},{eu:"Maiatza nire hilabete gogokoena da",es:"Mayo es mi mes favorito",emoji:"📅"},{eu:"Udazkenean hostoak erortzen dira",es:"En otoño se caen las hojas",emoji:"🍂"}],fills:[{s:"Udan bero ___ du.",opts:["egiten","da","dago","dut"],ans:"egiten",es:"En verano hace calor"},{s:"Neguan hotz ___ du.",opts:["egiten","da","dira","naiz"],ans:"egiten",es:"En invierno hace frío"},{s:"Udaberrian loreak ___ .",opts:["daude","da","dut","naiz"],ans:"daude",es:"En primavera hay flores"},{s:"Urtarrila urteko lehen hilabetea ___ .",opts:["da","dira","dut","dago"],ans:"da",es:"Enero es el primer mes del año"},{s:"Maiatza nire hilabete gogokoena ___ .",opts:["da","dira","naiz","dut"],ans:"da",es:"Mayo es mi mes favorito"},{s:"Udazkenean hostoak ___ dira.",opts:["erortzen","egiten","entzuten","jolasten"],ans:"erortzen",es:"En otoño se caen las hojas"}]},
+ janaria_a1:{level:"A1",type:"vocab",title:"Janaria",es:"La comida · refuerzo A1",color:"#d97706",icon:"🍽️",grammar:"Refuerzo A1 con la comida: con IZAN describes cómo es o está cada cosa: singular = da (ogia goxoa da, kafea beroa da). Con UKAN comes y bebes: dut = yo (esnea edaten dut) y dugu = nosotros (arraina jaten dugu). Goizean = por la mañana y ostiralean = el viernes (-n = en).",words:[{eu:"Ogia",es:"El pan",emoji:"🍞"},{eu:"Esnea",es:"La leche",emoji:"🥛"},{eu:"Arrautza",es:"El huevo",emoji:"🥚"},{eu:"Haragia",es:"La carne",emoji:"🥩"},{eu:"Arraina",es:"El pescado",emoji:"🐟"},{eu:"Patata",es:"La patata",emoji:"🥔"},{eu:"Tomatea",es:"El tomate",emoji:"🍅"},{eu:"Sagarra",es:"La manzana",emoji:"🍎"},{eu:"Ura",es:"El agua",emoji:"💧"},{eu:"Kafea",es:"El café",emoji:"☕"},{eu:"Gazta",es:"El queso",emoji:"🧀"},{eu:"Fruta",es:"La fruta",emoji:"🍇"},{eu:"Ogia goxoa da",es:"El pan está rico",emoji:"🍞"},{eu:"Esnea edaten dut goizean",es:"Bebo leche por la mañana",emoji:"🥛"},{eu:"Arraina jaten dugu ostiralean",es:"Comemos pescado el viernes",emoji:"🐟"},{eu:"Sagarra gorria da",es:"La manzana es roja",emoji:"🍎"},{eu:"Kafea beroa da",es:"El café está caliente",emoji:"☕"},{eu:"Fruta osasuntsua da",es:"La fruta es sana",emoji:"🍇"}],fills:[{s:"Ogia ___ da.",opts:["goxoa","gorria","beroa","osasuntsua"],ans:"goxoa",es:"El pan está rico"},{s:"Esnea ___ dut goizean.",opts:["edaten","jaten","ikasten","egiten"],ans:"edaten",es:"Bebo leche por la mañana"},{s:"Arraina jaten ___ ostiralean.",opts:["dugu","dut","du","dute"],ans:"dugu",es:"Comemos pescado el viernes"},{s:"Sagarra ___ da.",opts:["gorria","goxoa","beroa","osasuntsua"],ans:"gorria",es:"La manzana es roja"},{s:"Kafea ___ da.",opts:["beroa","goxoa","gorria","osasuntsua"],ans:"beroa",es:"El café está caliente"},{s:"Fruta ___ da.",opts:["osasuntsua","goxoa","beroa","gorria"],ans:"osasuntsua",es:"La fruta es sana"}]},
+ familia_a1:{level:"A1",type:"vocab",title:"Familia",es:"La familia · refuerzo A1",color:"#7c3aed",icon:"👨‍👩‍👧‍👦",grammar:"Refuerzo A1 con la familia: nire = mi (nire ama, nire aita). Con IZAN: da = es (nire ama irakaslea da, nire familia handia da) y dira = son / viven en plural (aitona eta amona Bilbon bizi dira). Para decir dónde está alguien se usa EGON: dago = está (nire aita etxean dago). -n = en: etxean, Bilbon.",words:[{eu:"Ama",es:"La madre",emoji:"👩"},{eu:"Aita",es:"El padre",emoji:"👨"},{eu:"Semea",es:"El hijo",emoji:"👦"},{eu:"Alaba",es:"La hija",emoji:"👧"},{eu:"Anaia",es:"El hermano",emoji:"🧑"},{eu:"Arreba",es:"La hermana",emoji:"👧"},{eu:"Aitona",es:"El abuelo",emoji:"👴"},{eu:"Amona",es:"La abuela",emoji:"👵"},{eu:"Osaba",es:"El tío",emoji:"🧔"},{eu:"Izeba",es:"La tía",emoji:"👩"},{eu:"Lehengusua",es:"El primo / la prima",emoji:"🧒"},{eu:"Familia",es:"La familia",emoji:"👨‍👩‍👧‍👦"},{eu:"Nire ama irakaslea da",es:"Mi madre es profesora",emoji:"👩"},{eu:"Nire aita etxean dago",es:"Mi padre está en casa",emoji:"👨"},{eu:"Nire anaia gaztea da",es:"Mi hermano es joven",emoji:"🧑"},{eu:"Aitona eta amona Bilbon bizi dira",es:"El abuelo y la abuela viven en Bilbao",emoji:"👴"},{eu:"Nire familia handia da",es:"Mi familia es grande",emoji:"👨‍👩‍👧‍👦"},{eu:"Lehengusua nire laguna da",es:"Mi primo es mi amigo",emoji:"🧒"}],fills:[{s:"Nire ama ___ da.",opts:["irakaslea","gaztea","handia","laguna"],ans:"irakaslea",es:"Mi madre es profesora"},{s:"Nire aita ___ dago.",opts:["etxean","Bilbon","eskolan","kalean"],ans:"etxean",es:"Mi padre está en casa"},{s:"Nire anaia ___ da.",opts:["gaztea","handia","irakaslea","laguna"],ans:"gaztea",es:"Mi hermano es joven"},{s:"Aitona eta amona ___ bizi dira.",opts:["Bilbon","Gasteizen","etxean","eskolan"],ans:"Bilbon",es:"El abuelo y la abuela viven en Bilbao"},{s:"Nire familia ___ da.",opts:["handia","gaztea","irakaslea","laguna"],ans:"handia",es:"Mi familia es grande"},{s:"Lehengusua nire ___ da.",opts:["laguna","irakaslea","gaztea","handia"],ans:"laguna",es:"Mi primo es mi amigo"}]},
+ ukan:{level:"A2",type:"verbos",title:"UKAN aditza",es:"Verbo UKAN · tener",color:"#1cb0f6",icon:"✋",grammar:"UKAN es NOR–NORK: el sujeto lleva -k (nik, zuk, hark). Nik dut, zuk duzu, hark du, guk dugu, zuek duzue, haiek dute.",words:[{eu:"Nik dut",es:"Yo tengo",emoji:"1️⃣"},{eu:"Zuk duzu",es:"Tú tienes",emoji:"2️⃣"},{eu:"Hark du",es:"Él tiene",emoji:"3️⃣"},{eu:"Guk dugu",es:"Nosotros tenemos",emoji:"👥"},{eu:"Zuek duzue",es:"Vosotros tenéis",emoji:"👥"},{eu:"Haiek dute",es:"Ellos tienen",emoji:"👥"},{eu:"Nik autoa dut",es:"Yo tengo coche",emoji:"🚗"},{eu:"Denbora dut",es:"Tengo tiempo",emoji:"⏰"}],fills:[{s:"Nik liburua ___ .",opts:["dut","duzu","da","naiz"],ans:"dut",es:"Yo tengo el libro"},{s:"Zuk giltza ___ ?",opts:["duzu","dut","dugu","da"],ans:"duzu",es:"¿Tú tienes la llave?"},{s:"Haiek dirua ___ .",opts:["dute","du","dut","dira"],ans:"dute",es:"Ellos tienen dinero"}]},
+ janaria:{level:"A2",type:"vocab",title:"Janaria",es:"Comida y bebida",color:"#f59e0b",icon:"🍞",grammar:"En la tienda: Zenbat da? = ¿cuánto es? Kilo bat ogi, mesedez = un kilo de pan, por favor.",words:[{eu:"Ogia",es:"Pan",emoji:"🍞"},{eu:"Esnea",es:"Leche",emoji:"🥛"},{eu:"Arraina",es:"Pescado",emoji:"🐟"},{eu:"Haragia",es:"Carne",emoji:"🥩"},{eu:"Sagarra",es:"Manzana",emoji:"🍎"},{eu:"Ura",es:"Agua",emoji:"💧"},{eu:"Kafea",es:"Café",emoji:"☕"},{eu:"Arrautzak",es:"Huevos",emoji:"🥚"},{eu:"Gazta",es:"Queso",emoji:"🧀"},{eu:"Barazkiak",es:"Verduras",emoji:"🥦"}]},
+ gustatzen:{level:"A2",type:"egitura",title:"Gustatzen zait",es:"Me gusta · NOR–NORI",color:"#e0245e",icon:"❤️",grammar:"No se dice *nik gustatzen dut. Se dice: Niri musika gustatzen zait (a mí me gusta la música). Zuri zait, hari zaio, guri zaigu… Si es plural: gustatzen zaizkit.",words:[{eu:"Niri gustatzen zait",es:"A mí me gusta",emoji:"❤️"},{eu:"Zuri gustatzen zaizu",es:"A ti te gusta",emoji:"💛"},{eu:"Hari gustatzen zaio",es:"A él le gusta",emoji:"💚"},{eu:"Guri gustatzen zaigu",es:"A nosotros nos gusta",emoji:"💙"},{eu:"Ez zait gustatzen",es:"No me gusta",emoji:"❌"},{eu:"Asko gustatzen zait",es:"Me gusta mucho",emoji:"😍"},{eu:"Liburuak gustatzen zaizkit",es:"Me gustan los libros (plural)",emoji:"📚"}],fills:[{s:"Niri futbola gustatzen ___ .",opts:["zait","zaizu","dut","naiz"],ans:"zait",es:"A mí me gusta el fútbol"},{s:"Zuri musika gustatzen ___ ?",opts:["zaizu","zait","zaio","duzu"],ans:"zaizu",es:"¿A ti te gusta la música?"}]},
+ egunerokoa:{level:"A2",type:"verbos",title:"Egunerokoa",es:"Rutina · presente habitual",color:"#16a34a",icon:"☀️",grammar:"Habitual = participio en -tzen / -ten + auxiliar: Egunero goiz jaikitzen naiz. Ikasten dut = estoy / suelo estudiar.",words:[{eu:"Jaiki",es:"Levantarse",emoji:"⏰"},{eu:"Gosaldu",es:"Desayunar",emoji:"🥐"},{eu:"Lan egin",es:"Trabajar",emoji:"💼"},{eu:"Ikasi",es:"Estudiar",emoji:"📚"},{eu:"Bazkaldu",es:"Comer (mediodía)",emoji:"🍽️"},{eu:"Afaldu",es:"Cenar",emoji:"🌙"},{eu:"Lo egin",es:"Dormir",emoji:"😴"},{eu:"Egunero ikasten dut",es:"Estudio todos los días",emoji:"📅"}],fills:[{s:"Egunero goiz jaikitzen ___ .",opts:["naiz","dut","da","du"],ans:"naiz",es:"Me levanto pronto (NOR)"},{s:"Arratsaldean euskara ikasten ___ .",opts:["dut","naiz","da","zait"],ans:"dut",es:"Estudio euskera (NOR–NORK)"}]},
+ galderak:{level:"A2",type:"egitura",title:"Galderak",es:"Hacer preguntas",color:"#0891b2",icon:"❓",grammar:"La palabra de pregunta va justo antes del verbo: Non bizi zara? Zer nahi duzu? Nor etorri da? El verbo no se mueve como en español.",words:[{eu:"Zer?",es:"¿Qué?",emoji:"❓"},{eu:"Nor?",es:"¿Quién?",emoji:"👤"},{eu:"Non?",es:"¿Dónde?",emoji:"📍"},{eu:"Noiz?",es:"¿Cuándo?",emoji:"📅"},{eu:"Nola?",es:"¿Cómo?",emoji:"🤔"},{eu:"Zenbat?",es:"¿Cuánto / cuántos?",emoji:"🔢"},{eu:"Zergatik?",es:"¿Por qué?",emoji:"❓"},{eu:"Nondik?",es:"¿De dónde?",emoji:"🧭"},{eu:"Nora?",es:"¿Adónde?",emoji:"➡️"},{eu:"Norekin?",es:"¿Con quién?",emoji:"👥"}]},
+ denbora:{level:"A2",type:"egitura",title:"Denbora",es:"Hora, días y casos -ean",color:"#7c3aed",icon:"🕐",grammar:"-ean / -etan = en: goizean (por la mañana), astelehenean (el lunes), Gasteizen (en Vitoria). Ordu batak dira = es la una, ordu biak = las dos.",words:[{eu:"Astelehena",es:"Lunes",emoji:"📅"},{eu:"Asteartea",es:"Martes",emoji:"📅"},{eu:"Asteazkena",es:"Miércoles",emoji:"📅"},{eu:"Osteguna",es:"Jueves",emoji:"📅"},{eu:"Ostirala",es:"Viernes",emoji:"📅"},{eu:"Larunbata",es:"Sábado",emoji:"🎉"},{eu:"Igandea",es:"Domingo",emoji:"☀️"},{eu:"Goizean",es:"Por la mañana",emoji:"🌅"},{eu:"Arratsaldean",es:"Por la tarde",emoji:"🌇"},{eu:"Ordu biak dira",es:"Son las dos",emoji:"🕑"}]},
+ lehenaldia_izan:{level:"B1",type:"verbos",title:"Lehenaldia · IZAN",es:"Pasado de IZAN",color:"#ea580c",icon:"⏪",grammar:"Pasado IZAN: ni nintzen, zu zinen, hura zen, gu ginen, zuek zineten, haiek ziren. Atzo Gasteizen nintzen = ayer estuve en Vitoria.",words:[{eu:"Ni nintzen",es:"Yo era / fui",emoji:"⏪"},{eu:"Zu zinen",es:"Tú eras",emoji:"⏪"},{eu:"Hura zen",es:"Él era",emoji:"⏪"},{eu:"Gu ginen",es:"Nosotros éramos",emoji:"⏪"},{eu:"Haiek ziren",es:"Ellos eran",emoji:"⏪"},{eu:"Atzo",es:"Ayer",emoji:"📅"},{eu:"Iaz",es:"El año pasado",emoji:"📅"}],fills:[{s:"Atzo ni etxean ___ .",opts:["nintzen","naiz","zen","dut"],ans:"nintzen",es:"Ayer yo estaba en casa"},{s:"Haiek gazteak ___ .",opts:["ziren","zen","ginen","da"],ans:"ziren",es:"Ellos eran jóvenes"}]},
+ lehenaldia_ukan:{level:"B1",type:"verbos",title:"Lehenaldia · UKAN",es:"Pasado de UKAN",color:"#dc2626",icon:"⏮️",grammar:"Pasado UKAN: nik nuen, zuk zenuen, hark zuen, guk genuen, zuek zenuten, haiek zuten. Atzo liburua erosi nuen.",words:[{eu:"Nik nuen",es:"Yo tenía / hice (pasado)",emoji:"⏪"},{eu:"Zuk zenuen",es:"Tú tenías",emoji:"⏪"},{eu:"Hark zuen",es:"Él tenía",emoji:"⏪"},{eu:"Guk genuen",es:"Nosotros teníamos",emoji:"⏪"},{eu:"Haiek zuten",es:"Ellos tenían",emoji:"⏪"},{eu:"Erosi nuen",es:"Lo compré",emoji:"🛒"},{eu:"Ikusi nuen",es:"Lo vi",emoji:"👀"}],fills:[{s:"Atzo nik autoa erosi ___ .",opts:["nuen","naiz","dut","nintzen"],ans:"nuen",es:"Ayer compré el coche"},{s:"Hark esan ___ egia zela.",opts:["zuen","zen","da","dut"],ans:"zuen",es:"Él dijo que era verdad"}]},
+ etorkizuna:{level:"B1",type:"verbos",title:"Etorkizuna",es:"Futuro · -ko / -go",color:"#0284c7",icon:"🔮",grammar:"Futuro = participio + -ko (tras vocal/n) o -go (tras cons.): etorriko naiz, egingo dut, joango naiz. Bihar = mañana.",words:[{eu:"Etorriko naiz",es:"Vendré",emoji:"🔮"},{eu:"Egingo dut",es:"Lo haré",emoji:"🔮"},{eu:"Joango naiz",es:"Iré",emoji:"➡️"},{eu:"Ikusiko dugu",es:"Lo veremos",emoji:"👀"},{eu:"Bihar",es:"Mañana",emoji:"📅"},{eu:"Datorren astean",es:"La semana que viene",emoji:"📅"},{eu:"Beranduago",es:"Más tarde",emoji:"⏰"}],fills:[{s:"Bihar Gasteizera joango ___ .",opts:["naiz","dut","da","nintzen"],ans:"naiz",es:"Mañana iré a Vitoria"},{s:"Lan hau gaur egingo ___ .",opts:["dut","naiz","zait","zen"],ans:"dut",es:"Haré este trabajo hoy"}]},
+ kasuak:{level:"B1",type:"egitura",title:"Kasuak",es:"Casos · -ra, -tik, -kin, -rentzat",color:"#059669",icon:"🧩",grammar:"Sufijos que hacen el trabajo de las preposiciones: -ra a, -tik de/desde, -kin con, -rentzat para (persona), -rako para (cosa/destino), -gatik por/causa de.",words:[{eu:"Etxera",es:"A casa (-ra)",emoji:"🏠"},{eu:"Etxetik",es:"De / desde casa (-tik)",emoji:"🏠"},{eu:"Lagunarekin",es:"Con el amigo (-kin)",emoji:"👥"},{eu:"Zuretzat",es:"Para ti (-rentzat)",emoji:"🎁"},{eu:"Niregatik",es:"Por mí / por mi culpa (-gatik)",emoji:"💬"},{eu:"Eskolara noa",es:"Voy a la escuela",emoji:"🏫"},{eu:"Bilbotik nator",es:"Vengo de Bilbao",emoji:"🚌"}],fills:[{s:"Ni etxe___ noa.",opts:["ra","tik","kin","rentzat"],ans:"ra",es:"Voy a casa"},{s:"Hau oparia zuretzat ___ .",opts:["da","naiz","dut","zen"],ans:"da",es:"Este regalo es para ti"}]},
+ konparaketa:{level:"B1",type:"egitura",title:"Konparaketa",es:"Comparar · -ago, baino",color:"#d97706",icon:"⚖️",grammar:"-ago = más: handiagoa = más grande. Estructura: A + B baino + adjetivo-ago: Zu ni baino altuagoa zara. Superlativo: -ena: handiena.",words:[{eu:"Handiagoa",es:"Más grande",emoji:"📏"},{eu:"Txikiagoa",es:"Más pequeño",emoji:"📏"},{eu:"Hobea",es:"Mejor",emoji:"⭐"},{eu:"Txarragoa",es:"Peor",emoji:"⬇️"},{eu:"Baino",es:"Que (comparativo)",emoji:"⚖️"},{eu:"Bezain",es:"Tan … como",emoji:"⚖️"},{eu:"Handiena",es:"El más grande (-ena)",emoji:"🏆"},{eu:"Zu ni baino altuagoa zara",es:"Tú eres más alto que yo",emoji:"📐"}],fills:[{s:"Etxe hau bestea baino handi___ da.",opts:["agoa","ena","ra","tik"],ans:"agoa",es:"Esta casa es más grande que la otra"}]},
+ ahalera:{level:"B2",type:"egitura",title:"Ahal, Nahi, Behar",es:"Poder, querer y deber",color:"#7c3aed",icon:"💪",grammar:"Ahal dut = puedo, nahi dut = quiero, behar dut = debo / necesito, ezin dut = no puedo. Van con participio: Etorri ahal naiz / Egin ahal dut según NOR o NORK.",words:[{eu:"Ahal dut",es:"Puedo (hacerlo)",emoji:"💪"},{eu:"Nahi dut",es:"Quiero",emoji:"🎯"},{eu:"Behar dut",es:"Debo / necesito",emoji:"📌"},{eu:"Ezin dut",es:"No puedo",emoji:"🚫"},{eu:"Joan behar dut",es:"Tengo que ir",emoji:"➡️"},{eu:"Etorri ahal naiz",es:"Puedo venir",emoji:"✅"},{eu:"Ez dut nahi",es:"No quiero",emoji:"❌"}],fills:[{s:"Nik ezin ___ egin gaur.",opts:["dut","naiz","da","zait"],ans:"dut",es:"Hoy no lo puedo hacer"},{s:"Etxera joan behar ___ .",opts:["dut","da","zara","zen"],ans:"dut",es:"Tengo que ir a casa"}]},
+ baldintza:{level:"B2",type:"egitura",title:"Baldintza",es:"Condicional · ba- / -ke",color:"#6d28d9",icon:"🔀",grammar:"Si…: verbo con ba- en la condición y -ke en el resultado: Dirua banu, autoa erosiko nuke. IZAN: balitz… litzateke. UKAN: banu… nuke.",words:[{eu:"Banu",es:"Si yo tuviera",emoji:"🔀"},{eu:"Balitz",es:"Si fuera / fuese",emoji:"🔀"},{eu:"Nuke",es:"Yo lo haría / tendría (cond.)",emoji:"💭"},{eu:"Litzateke",es:"Sería",emoji:"💭"},{eu:"Erosiko nuke",es:"Lo compraría",emoji:"🛒"},{eu:"Joango nintzateke",es:"Iría",emoji:"➡️"},{eu:"Ahal banu, egingo nuke",es:"Si pudiera, lo haría",emoji:"💭"}],fills:[{s:"Dirua banu, autoa erosiko ___ .",opts:["nuke","dut","da","nuen"],ans:"nuke",es:"Si tuviera dinero, compraría el coche"},{s:"Bihar eguraldi ona balitz, hondartzara joango ___ .",opts:["ginateke","gara","dugu","ginen"],ans:"ginateke",es:"Si mañana hiciera bueno, iríamos a la playa"}]},
+ erlatiboak:{level:"B2",type:"egitura",title:"Erlatiboak",es:"Relativas · -n / -ko",color:"#4f46e5",icon:"🔗",grammar:"El 'que' va pegado al verbo y la frase relativa va ANTES del nombre: Atzo etorri zen gizona = el hombre que vino ayer. -ko para lugar/tiempo: Gasteizko etxea.",words:[{eu:"Etorri zen gizona",es:"El hombre que vino",emoji:"👨"},{eu:"Irakurri dudan liburua",es:"El libro que he leído",emoji:"📚"},{eu:"Bizi naizen etxea",es:"La casa en la que vivo",emoji:"🏠"},{eu:"Gasteizko jendea",es:"La gente de Vitoria (-ko)",emoji:"🏙️"},{eu:"Atzoko bilera",es:"La reunión de ayer",emoji:"📅"},{eu:"Esan didan gauza",es:"La cosa que me ha dicho",emoji:"💬"}],fills:[{s:"Irakurri ___ liburua oso ona da.",opts:["dudan","dut","da","nuen bakarrik"],ans:"dudan",es:"El libro que he leído es muy bueno"}]},
+ helburuak:{level:"B2",type:"egitura",title:"Helburuak",es:"Finalidad · -tzeko, -tzeagatik",color:"#0f766e",icon:"🎯",grammar:"-tzeko = para + infinitivo: Ikasteko etorri naiz. -tzeagatik = por / a causa de. Nahiz eta = aunque: Nahiz eta nekatuta egon, etorriko naiz.",words:[{eu:"Ikasteko",es:"Para estudiar (-tzeko)",emoji:"🎯"},{eu:"Irabazteko",es:"Para ganar",emoji:"🏆"},{eu:"Nahiz eta",es:"Aunque",emoji:"🔀"},{eu:"Hala ere",es:"Sin embargo",emoji:"💬"},{eu:"Beraz",es:"Por lo tanto",emoji:"➡️"},{eu:"Bestalde",es:"Por otro lado",emoji:"↔️"},{eu:"Horregatik",es:"Por eso",emoji:"📌"}],fills:[{s:"Euskara ikaste___ etorri naiz.",opts:["ko","ra","tik","kin"],ans:"ko",es:"He venido para estudiar euskera"}]},
+ zeharbidea:{level:"B2.2",type:"egitura",title:"Zehar-estiloa",es:"Estilo indirecto · -ela",color:"#111827",icon:"🗣️",grammar:"Decir que…: verbo + -ela / -en: Esan du etorriko dela (ha dicho que vendrá). Pregunta indirecta: -en: Ez dakit etorriko den. Es el salto clave del B2.2.",words:[{eu:"Esan du etorriko dela",es:"Ha dicho que vendrá",emoji:"🗣️"},{eu:"Uste dut egia dela",es:"Creo que es verdad",emoji:"💭"},{eu:"Ez dakit non dagoen",es:"No sé dónde está",emoji:"❓"},{eu:"Galdetu dit ea datorren",es:"Me ha preguntado si viene (ea)",emoji:"❓"},{eu:"Esan zidan berandu zela",es:"Me dijo que era tarde",emoji:"🕐"}],fills:[{s:"Esan du bihar etorriko ___ .",opts:["dela","da","dut","zen"],ans:"dela",es:"Ha dicho que vendrá mañana"},{s:"Ez dakit etxean ___ .",opts:["dagoen","dago","da","dut"],ans:"dagoen",es:"No sé si está en casa"}]},
+ nominalizazioa:{level:"B2.2",type:"egitura",title:"Nominalizazioa",es:"Convertir verbos en nombres · -tzea",color:"#374151",icon:"🧱",grammar:"-tzea convierte el verbo en sujeto: Ikastea garrantzitsua da (estudiar es importante). -teak plural / ergativo: Ikasteak fruituak ematen ditu. Imprescindible en textos B2.2.",words:[{eu:"Ikastea",es:"El estudiar / estudiar (sujeto)",emoji:"📚"},{eu:"Etortzea",es:"El venir",emoji:"➡️"},{eu:"Egitea",es:"El hacer",emoji:"🛠️"},{eu:"Garrantzitsua da",es:"Es importante",emoji:"⭐"},{eu:"Zaila da",es:"Es difícil",emoji:"🧗"},{eu:"Erraza da",es:"Es fácil",emoji:"✅"},{eu:"Ikastea gustatzen zait",es:"Me gusta estudiar",emoji:"❤️"}],fills:[{s:"Euskara ikas___ oso garrantzitsua da.",opts:["tea","ko","ra","tik"],ans:"tea",es:"Estudiar euskera es muy importante"}]},
+ konektoreak:{level:"B2.2",type:"vocab",title:"Konektoreak B2.2",es:"Conectores para argumentar",color:"#7c2d12",icon:"✍️",grammar:"En B2.2 no basta con frases cortas: hay que enlazar. Lehenik… gero… azkenik. Hala ere, beraz, gainera, bestalde, laburbilduz.",words:[{eu:"Lehenik",es:"En primer lugar",emoji:"1️⃣"},{eu:"Gainera",es:"Además",emoji:"➕"},{eu:"Hala ere",es:"Sin embargo",emoji:"🔀"},{eu:"Beraz",es:"Por lo tanto",emoji:"➡️"},{eu:"Bestalde",es:"Por otro lado",emoji:"↔️"},{eu:"Adibidez",es:"Por ejemplo",emoji:"💡"},{eu:"Laburbilduz",es:"En resumen",emoji:"📝"},{eu:"Ondorioz",es:"En consecuencia",emoji:"🏁"}]},
+ azterketa:{level:"B2.2",type:"egitura",title:"B2.2 Simulakroa",es:"Simulacro mixto B2.2",color:"#991b1b",icon:"🎓",grammar:"Mezcla de examen: condicional + indirecto + relativo + nominalización en las mismas frases. Si dominas esto, estás en B2.2.",words:[{eu:"Ahal banu, ikasiko nuke",es:"Si pudiera, estudiaría",emoji:"🎓"},{eu:"Esan du datorrela",es:"Ha dicho que viene",emoji:"🗣️"},{eu:"Ikastea beharrezkoa da",es:"Estudiar es necesario",emoji:"📌"},{eu:"Nahiz eta zaila izan, egingo dut",es:"Aunque sea difícil, lo haré",emoji:"💪"},{eu:"Atzo ikusi nuen filma",es:"La película que vi ayer",emoji:"🎬"}],fills:[{s:"Nahiz eta nekatuta egon, bukatuko ___ .",opts:["dut","da","naiz","zait"],ans:"dut",es:"Aunque esté cansado, lo terminaré"},{s:"Uste dut azterketa gaindituko ___ .",opts:["duzula","duzu","da","zara"],ans:"duzula",es:"Creo que aprobarás el examen (-ela con zu)"}]}
+};
+const ORDER=Object.keys(L);
+let mode="adult",levelFilter="all";
+let state={xp:0,hearts:5,streak:0,completed:{}};
+let currentLesson=null,exercises=[],exIndex=0,selected=null,lessonXP=0,lessonCorrect=0,matchedPairs=0,matchSel=null;
+function shuffle(a){return [...a].sort(()=>Math.random()-0.5)}
+function speak(t){try{const u=new SpeechSynthesisUtterance(t);u.lang="eu-ES";u.rate=.85;const v=speechSynthesis.getVoices();const eu=v.find(x=>x.lang&&x.lang.toLowerCase().startsWith("eu"));if(eu)u.voice=eu;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+if('speechSynthesis' in window)speechSynthesis.getVoices();
+function setMode(m){mode=m;document.getElementById('btnAdult').classList.toggle('active',m==='adult');document.getElementById('btnKids').classList.toggle('active',m==='kids');document.getElementById('modeHint').textContent=m==='kids'?"Modo niños: empieza por A1 (saludos, números, colores, familia). Los verbos y B2 son para adultos.":"Modo adultos: camino completo A1–B2.2 con gramática y verbos.";document.body.classList.toggle('kids',m==='kids');renderAll()}
+function setFilter(f,btn){levelFilter=f;document.querySelectorAll('#filters button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');renderAll()}
+function filteredIds(){return ORDER.filter(id=>{const l=L[id];if(levelFilter==='all')return true;if(levelFilter==='verbos')return l.type==='verbos';if(levelFilter==='egiturak')return l.type==='egitura';return l.level===levelFilter})}
+function renderAll(){renderRoadmap();renderLevels();renderVocab()}
+function renderRoadmap(){const el=document.getElementById('roadmap');el.innerHTML=LEVELS.map(lv=>{const ids=ORDER.filter(id=>L[id].level===lv.id);const done=ids.filter(id=>state.completed[id]).length;const pct=ids.length?done/ids.length*100:0;return `<div class="rm"><b style="color:${lv.color}">${lv.id}</b><span>${lv.name.split('·')[1]||''}</span><i><em style="width:${pct}%;background:${lv.color}"></em></i></div>`}).join("");const d=ORDER.filter(id=>state.completed[id]).length;document.getElementById('globalProgress').textContent=`${d} / ${ORDER.length} lecciones completadas · Camino hasta B2.2`}
+function renderLevels(){const c=document.getElementById('levelsContainer');c.innerHTML="";LEVELS.forEach(lv=>{const ids=ORDER.filter(id=>L[id].level===lv.id && filteredIds().includes(id));if(!ids.length)return;const done=ORDER.filter(id=>L[id].level===lv.id&&state.completed[id]).length;const total=ORDER.filter(id=>L[id].level===lv.id).length;const sec=document.createElement('div');sec.innerHTML=`<div class="levelHead" style="background:${lv.color}"><div><h2>${lv.name}</h2><p>${lv.desc}</p></div><span class="cnt">${done} / ${total}</span></div><div class="lessonGrid">${ids.map(id=>{const l=L[id];return `<button class="lessonCard ${state.completed[id]?'done':''}" onclick="startLesson('${id}')"><span class="lIcon" style="background:${l.color}">${l.icon}</span><span style="flex:1"><b>${l.title}</b><small>${l.es} · ${l.words.length} formas</small><span><span class="tag">${l.type==='verbos'?'⭐ Aditza · Verbo':l.type==='egitura'?'🧩 Egitura · Estructura':'🔤 Hiztegia · Vocabulario'}</span><span class="tag">${l.level}</span></span><span class="grammarPreview">${l.grammar.slice(0,110)}${l.grammar.length>110?'…':''}</span></span></button>`}).join("")}</div>`;c.appendChild(sec)})}
+function renderVocab(){const grid=document.getElementById('vocabGrid');grid.innerHTML="";filteredIds().forEach(id=>{const l=L[id];const card=document.createElement('div');card.className="vocabCard";let rows=l.words.map(w=>`<div class="wordRow"><div style="display:flex;align-items:center;gap:8px">${w.hex?`<span class="swatch" style="background:${w.hex};width:22px;height:22px"></span>`:`<span style="font-size:19px">${w.emoji||'•'}</span>`}<b>${w.eu}</b></div><span>${w.es}</span><button class="speakBtn" onclick="speak('${w.eu.replace(/'/g,"\\'")}')" aria-label="Escuchar">🔊</button></div>`).join("");card.innerHTML=`<h3 style="color:${l.color}">${l.icon} ${l.title} · ${l.level}</h3><p class="g">${l.grammar}</p>${rows}`;grid.appendChild(card)})}
+function getExercises(id){const l=L[id];const words=l.words;const pool=[];const sh=shuffle(words);sh.slice(0,3).forEach(w=>{const opts=shuffle([w,...shuffle(words.filter(x=>x!==w)).slice(0,mode==='kids'?2:3)]);pool.push({type:'choice',prompt:'¿Cómo se dice en español?',main:w.eu,sub:'Elige la traducción correcta',word:w,options:opts,answer:w.es,display:'es'})});sh.slice(3,5).forEach(w=>{const opts=shuffle([w,...shuffle(words.filter(x=>x!==w)).slice(0,mode==='kids'?2:3)]);pool.push({type:'choice',prompt:'¿Cómo se dice en euskera?',main:w.es.split('·')[0],sub:'Toca la forma en euskera',word:w,options:opts,answer:w.eu,display:'eu'})});const lw=sh[5]||sh[0];const lopts=shuffle([lw,...shuffle(words.filter(x=>x!==lw)).slice(0,3)]);pool.push({type:'listen',prompt:'Escucha y elige',main:lw.eu,sub:'Pulsa el altavoz y elige lo que oyes',word:lw,options:lopts,answer:lw.eu,display:'eu',listen:true});(l.fills||[]).forEach(f=>{pool.push({type:'fill',prompt:'Completa la frase · Egitura',main:f.s,sub:f.es+' — elige la forma correcta para el hueco',word:{eu:f.ans,es:f.es},options:f.opts.map(o=>({eu:o,es:o})),answer:f.ans,display:'eu',fill:true})});const picked=shuffle(pool).slice(0,5);picked.push({type:'match',prompt:'Une cada forma',main:'Empareja',sub:'Toca una forma en euskera y luego su traducción',words:shuffle(words).slice(0,4)});return picked}
+function startLesson(id){currentLesson=id;exercises=getExercises(id);exIndex=0;lessonXP=0;lessonCorrect=0;state.hearts=5;updateStats();document.getElementById('homeView').classList.add('hidden');document.getElementById('resultView').classList.add('hidden');document.getElementById('lessonView').classList.remove('hidden');const l=L[id];document.getElementById('lessonIntro').innerHTML=`<div class="introBox"><b>${l.icon} ${l.title} · ${l.level} — ${l.type==='verbos'?'Aditza':l.type==='egitura'?'Egitura':'Hiztegia'}</b>${l.grammar}</div>`;window.scrollTo({top:0});renderExercise()}
+function updateStats(){document.getElementById('xpVal').textContent=state.xp;document.getElementById('heartsVal').textContent=state.hearts;document.getElementById('streakVal').textContent=state.streak;const lh=document.getElementById('lessonHearts');if(lh)lh.textContent=state.hearts}
+function renderExercise(){selected=null;matchedPairs=0;matchSel=null;const ex=exercises[exIndex];const area=document.getElementById('exerciseArea');const check=document.getElementById('checkBtn');document.getElementById('lessonBar').style.width=(exIndex/exercises.length*100)+"%";updateStats();if(ex.type==='match'){check.classList.add('hidden');const left=ex.words;const right=shuffle(ex.words);area.innerHTML=`<div class="qPrompt">${ex.prompt}</div><div class="qMain">${ex.main}</div><p class="qSub">${ex.sub} · <span id="matchCount">0 / ${ex.words.length}</span> parejas</p><div class="matchGrid"><div style="display:grid;gap:10px">${left.map(w=>`<button class="matchBtn" data-side="eu" data-val="${w.eu}" onclick="matchTap(this)">${w.hex?`<span class="swatch" style="background:${w.hex};display:inline-block;vertical-align:middle;margin-right:8px;width:22px;height:22px"></span>`:''}${w.eu}</button>`).join("")}</div><div style="display:grid;gap:10px">${right.map(w=>`<button class="matchBtn" data-side="es" data-val="${w.eu}" onclick="matchTap(this)">${w.es}</button>`).join("")}</div></div>`;return}check.classList.remove('hidden');check.disabled=true;check.textContent="Comprobar";let big="";if(ex.listen){big=`<div class="bigWord"><b style="font-size:21px">Escucha con atención</b><button class="speakBtn" style="width:56px;height:56px;font-size:24px;background:var(--green);color:#fff;border-color:var(--green)" onclick="speak('${ex.word.eu.replace(/'/g,"\\'")}')">🔊</button></div>`;setTimeout(()=>speak(ex.word.eu),350)}else if(!ex.fill){big=`<div class="bigWord"><b>${ex.main}</b><button class="speakBtn" onclick="speak('${(ex.word.eu||'').replace(/'/g,"\\'")}')">🔊</button></div>`}area.innerHTML=`<div class="qPrompt">${ex.prompt}</div><div class="qMain">${ex.type==='listen'?'¿Qué has oído?':ex.main}</div><p class="qSub">${ex.sub}</p>${big}<div class="options">${ex.options.map(o=>{const label=ex.display==='eu'?o.eu:o.es;const visual=o.hex?`<span class="swatch" style="background:${o.hex}"></span>`:(mode==='kids'&&o.emoji?`<span class="emojiBox">${o.emoji}</span>`:'');return `<button class="opt" onclick="selectOpt(this, this.dataset.v)" data-v="${label.replace(/"/g,'&quot;')}">${visual}<span>${label}</span></button>`}).join("")}</div>`}
+function selectOpt(el){document.querySelectorAll('.opt').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');selected=el.dataset.v;document.getElementById('checkBtn').disabled=false}
+function matchTap(btn){if(btn.classList.contains('ok'))return;const side=btn.dataset.side;if(!matchSel){matchSel=btn;btn.classList.add('sel');return}if(matchSel.dataset.side===side){matchSel.classList.remove('sel');matchSel=btn;btn.classList.add('sel');return}const a=matchSel,b=btn;if(a.dataset.val===b.dataset.val){a.classList.remove('sel');a.classList.add('ok');b.classList.add('ok');matchedPairs++;document.getElementById('matchCount').textContent=`${matchedPairs} / ${exercises[exIndex].words.length}`;speak(a.dataset.val);matchSel=null;if(matchedPairs===exercises[exIndex].words.length){lessonCorrect++;lessonXP+=10;state.xp+=10;showFeedback(true,"¡Parejas completadas!","Has unido todas las formas correctamente.")}}else{a.classList.add('bad');b.classList.add('bad');setTimeout(()=>{a.classList.remove('sel','bad');b.classList.remove('bad')},600);matchSel=null;loseHeart();if(state.hearts<=0)return failLesson()}updateStats()}
+function loseHeart(){state.hearts=Math.max(0,state.hearts-1);updateStats()}
+function checkAnswer(){const ex=exercises[exIndex];if(selected===null)return;const correct=selected===ex.answer;document.querySelectorAll('.opt').forEach(b=>{if(b.dataset.v===ex.answer)b.classList.add('correct');else if(b.classList.contains('selected'))b.classList.add('wrong');b.disabled=true});document.getElementById('checkBtn').disabled=true;if(correct){lessonCorrect++;lessonXP+=10;state.xp+=10;speak(ex.word.eu);showFeedback(true,mode==='kids'?"¡Muy bien! 🎉":"¡Correcto! Zorionak!",`${ex.word.eu} = ${ex.word.es}`)}else{loseHeart();showFeedback(false,"Casi… sigue intentando",`La respuesta correcta es: ${ex.answer}.`);if(state.hearts<=0)document.getElementById('fbBtn').textContent="Ver resultado"}updateStats()}
+function showFeedback(good,title,text){const fb=document.getElementById('feedback');fb.className="feedback show "+(good?"good":"bad");document.getElementById('fbTitle').textContent=title;document.getElementById('fbText').textContent=text;const btn=document.getElementById('fbBtn');btn.className="cta "+(good?"green":"red");btn.textContent=(exIndex===exercises.length-1)?"Terminar":"Continuar"}
+function hideFeedback(){document.getElementById('feedback').classList.remove('show')}
+function nextExercise(){hideFeedback();if(state.hearts<=0)return failLesson();exIndex++;if(exIndex>=exercises.length)finishLesson();else renderExercise()}
+function failLesson(){hideFeedback();document.getElementById('lessonView').classList.add('hidden');document.getElementById('resultView').classList.remove('hidden');document.getElementById('resultTitle').textContent="Te has quedado sin corazones";document.getElementById('resultSub').textContent="Ez etsi! Repasa la explicación de la lección y la tabla de verbos de la portada y vuelve a intentarlo.";document.getElementById('resultStars').textContent="☆☆☆";document.getElementById('resultXP').textContent="+"+lessonXP;document.getElementById('resultAcc').textContent=lessonCorrect+" / "+exercises.length;document.getElementById('resultLevel').textContent=L[currentLesson]?L[currentLesson].level:"—";state.hearts=5;updateStats()}
+function finishLesson(){state.completed[currentLesson]=true;if(state.streak===0)state.streak=1;state.hearts=5;document.getElementById('lessonView').classList.add('hidden');document.getElementById('resultView').classList.remove('hidden');const total=exercises.length;const ratio=lessonCorrect/total;document.getElementById('resultStars').textContent=ratio>=.9?"★★★":ratio>=.6?"★★☆":"★☆☆";document.getElementById('resultTitle').textContent=ratio>=.9?"¡Excelente! Bikain!":"¡Lección completada!";const l=L[currentLesson];document.getElementById('resultSub').innerHTML=`Has terminado <strong>${l.title} · ${l.es}</strong> (${l.level}) en modo ${mode==='kids'?'niños':'adultos'}.<br>${l.grammar}`;document.getElementById('resultXP').textContent="+"+lessonXP;document.getElementById('resultAcc').textContent=lessonCorrect+" / "+total;document.getElementById('resultLevel').textContent=l.level;updateStats();renderAll()}
+function backHome(){hideFeedback();document.getElementById('resultView').classList.add('hidden');document.getElementById('lessonView').classList.add('hidden');document.getElementById('homeView').classList.remove('hidden');state.hearts=5;updateStats();renderAll();window.scrollTo({top:0})}
+function exitLesson(){hideFeedback();backHome()}
+function retryLesson(){hideFeedback();if(currentLesson)startLesson(currentLesson);else backHome()}
+setMode('adult');updateStats();
+</script>
+
+<!-- FIREBASE: amigos y clasificación -->
+<div id="fbNickModal" class="hidden" style="position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px">
+  <div style="background:var(--card);color:var(--ink);border-radius:16px;padding:24px 20px;max-width:420px;width:100%;border:2px solid var(--line)">
+    <h3 style="margin:0 0 6px;font-family:'Baloo 2';font-size:24px">Elige tu apodo</h3>
+    <p style="color:var(--muted);font-weight:700;line-height:1.5;margin:0 0 14px">Es el nombre que verán tus amigos en la clasificación semanal. Sin contraseña ni correo.</p>
+    <input id="fbNickInput" type="text" maxlength="24" placeholder="Tu apodo" autocomplete="off" style="width:100%;padding:12px;border:2px solid var(--line);border-radius:12px;font:inherit;font-weight:800;background:var(--card);color:var(--ink)"/>
+    <p id="fbNickMsg" style="color:var(--muted);font-weight:700;margin:10px 0 0"></p>
+    <button class="cta green" style="width:100%;margin-top:12px" onclick="fbSaveNick()">Guardar</button>
+  </div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script>
+// FIREBASE: amigos y clasificación — Ikasi Euskara. Todos los datos van bajo /ikasi/.
+// SDK Firebase 10.12.2 en su versión clásica (compat) desde gstatic: expone el mismo
+// API (auth anónimo y Realtime Database) y funciona al abrir el archivo en local.
+(function(){
+"use strict";
+var firebaseConfig = { apiKey: "AIzaSyBzz7UH96Tb0sSLAiKmsdDQeasC_nW0XD4", authDomain: "despensa-granon.firebaseapp.com", databaseURL: "https://despensa-granon-default-rtdb.europe-west1.firebasedatabase.app", projectId: "despensa-granon", storageBucket: "despensa-granon.firebasestorage.app", messagingSenderId: "822903927843", appId: "1:822903927843:web:4cd3a6867c130665ad6d96" };
+var fbDb=null, fbUid=null, fbName=null, fbCode=null, fbProfileReady=false, fbFriendsStarted=false;
+var fbFriends={}, fbFriendData={}, fbListened={}, fbLastSyncedXp=null;
+function $(id){return document.getElementById(id)}
+function fbEsc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function fbLocalXp(){try{return (typeof state!=="undefined"&&state&&typeof state.xp==="number")?state.xp:0}catch(e){return 0}}
+function fbWeekKey(d){
+  d=d||new Date();
+  var date=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));
+  var dayNum=date.getUTCDay()||7;
+  date.setUTCDate(date.getUTCDate()+4-dayNum);
+  var yearStart=new Date(Date.UTC(date.getUTCFullYear(),0,1));
+  var weekNo=Math.ceil((((date-yearStart)/86400000)+1)/7);
+  return date.getUTCFullYear()+"-W"+("0"+weekNo).slice(-2);
+}
+function fbCodeFromUid(uid){
+  var map={"0":"2","O":"P","1":"3","I":"J","L":"M"};
+  return String(uid).slice(0,6).toUpperCase().split("").map(function(c){return map[c]||c}).join("");
+}
+function fbSetStatus(t){var el=$("fbStatus");if(el)el.textContent=t}
+function fbSetMsg(t){var el=$("fbMsg");if(el)el.textContent=t}
+function fbUpdateProfileUI(){
+  var n=$("fbMyName");if(n)n.textContent=fbName||"—";
+  var c=$("fbMyCode");if(c)c.textContent=fbCode||"—";
+}
+function fbRenderFriends(){
+  var box=$("fbFriendsList");if(!box)return;
+  var ids=Object.keys(fbFriends);
+  if(!ids.length){box.innerHTML='<p style="margin:0">Todavía no tienes amigos. Pide a un amigo su código y añádelo arriba.</p>';return}
+  box.innerHTML=ids.map(function(id){
+    var f=fbFriends[id]||{};var d=fbFriendData[id]||{};
+    return '<div class="wordRow"><b>'+fbEsc(d.name||f.name||"Amigo")+'</b></div>';
+  }).join("");
+}
+function fbRenderRank(){
+  var box=$("fbRankList");if(!box)return;
+  var wk=fbWeekKey();var wl=$("fbWeekLabel");if(wl)wl.textContent=wk;
+  var rows=[{name:fbName||"Tú",xp:fbLocalXp(),me:true}];
+  Object.keys(fbFriends).forEach(function(id){
+    var f=fbFriends[id]||{};var d=fbFriendData[id]||{};var xp=0;
+    if(d.xpWeek&&typeof d.xpWeek[wk]==="number")xp=d.xpWeek[wk];
+    rows.push({name:d.name||f.name||"Amigo",xp:xp,me:false});
+  });
+  rows.sort(function(a,b){return b.xp-a.xp});
+  box.innerHTML=rows.map(function(r,i){
+    return '<div class="wordRow"><b>'+(i+1)+". "+fbEsc(r.name)+(r.me?" (tú)":"")+'</b><span>'+r.xp+" XP</span></div>";
+  }).join("");
+  var inv=$("fbRankInvite");if(inv)inv.style.display=Object.keys(fbFriends).length?"none":"";
+}
+function fbSyncXp(){
+  if(!fbDb||!fbUid||!fbProfileReady)return;
+  var xp=fbLocalXp();
+  if(fbLastSyncedXp===xp)return;
+  fbLastSyncedXp=xp;
+  try{
+    var up={};up["xpTotal"]=xp;up["xpWeek/"+fbWeekKey()]=xp;up["updatedAt"]=Date.now();
+    fbDb.ref("ikasi/users/"+fbUid).update(up).catch(function(){});
+  }catch(e){}
+}
+function fbStartFriends(){
+  if(fbFriendsStarted||!fbDb||!fbUid)return;
+  fbFriendsStarted=true;
+  try{
+    fbDb.ref("ikasi/friends/"+fbUid).on("value",function(snap){
+      fbFriends=snap.val()||{};
+      Object.keys(fbFriends).forEach(function(fid){
+        if(fbListened[fid])return;
+        fbListened[fid]=true;
+        fbDb.ref("ikasi/users/"+fid).on("value",function(s2){
+          fbFriendData[fid]=s2.val()||{};
+          fbRenderFriends();fbRenderRank();
+        },function(){});
+      });
+      fbRenderFriends();fbRenderRank();
+    },function(){});
+  }catch(e){}
+}
+window.fbSaveNick=function(){
+  try{
+    var inp=$("fbNickInput");var msg=$("fbNickMsg");
+    var name=inp?(inp.value||"").trim():"";
+    if(!name){if(msg)msg.textContent="Escribe un apodo para continuar.";return}
+    if(!fbDb||!fbUid){if(msg)msg.textContent="Sin conexión. Inténtalo de nuevo en un momento.";return}
+    var xpW={};xpW[fbWeekKey()]=fbLocalXp();
+    var rec={name:name,code:fbCode,xpTotal:fbLocalXp(),xpWeek:xpW,updatedAt:Date.now()};
+    fbDb.ref("ikasi/users/"+fbUid).set(rec).then(function(){
+      return fbDb.ref("ikasi/codes/"+fbCode).set(fbUid);
+    }).then(function(){
+      fbName=name;fbProfileReady=true;fbLastSyncedXp=fbLocalXp();
+      var m=$("fbNickModal");if(m)m.classList.add("hidden");
+      fbUpdateProfileUI();fbSetStatus("Conectado");fbStartFriends();fbRenderRank();
+    }).catch(function(){
+      if(msg)msg.textContent="No se pudo guardar. Revisa tu conexión e inténtalo otra vez.";
+    });
+  }catch(e){}
+};
+window.fbAddFriend=function(){
+  try{
+    var inp=$("fbCodeInput");
+    var code=inp?(inp.value||"").trim().toUpperCase():"";
+    if(!code){fbSetMsg("Escribe el código de tu amigo.");return}
+    if(!fbDb||!fbUid||!fbProfileReady){fbSetMsg("Sin conexión: espera a estar conectado para añadir amigos.");return}
+    if(code===fbCode){fbSetMsg("Ese es tu propio código.");return}
+    fbSetMsg("Buscando el código…");
+    fbDb.ref("ikasi/codes/"+code).once("value").then(function(snap){
+      if(!snap.exists()){fbSetMsg("Código no encontrado.");return}
+      var fid=snap.val();
+      if(fid===fbUid){fbSetMsg("Ese es tu propio código.");return}
+      fbDb.ref("ikasi/users/"+fid).once("value").then(function(usnap){
+        var u=usnap.val()||{};var fname=u.name||"Amigo";var date=new Date().toISOString();
+        var mine={};mine[fid]={name:fname,date:date};
+        var theirs={};theirs[fbUid]={name:fbName||"Amigo",date:date};
+        fbDb.ref("ikasi/friends/"+fbUid).update(mine).then(function(){
+          return fbDb.ref("ikasi/friends/"+fid).update(theirs);
+        }).then(function(){
+          fbSetMsg("Amigo añadido: "+fname+".");
+          if(inp)inp.value="";
+        }).catch(function(){
+          fbSetMsg("No se pudo añadir. Inténtalo otra vez.");
+        });
+      }).catch(function(){fbSetMsg("No se pudo añadir. Inténtalo otra vez.");});
+    }).catch(function(){fbSetMsg("Sin conexión: no se pudo buscar el código.");});
+  }catch(e){}
+};
+// Engancha la sincronización de XP sin tocar la lógica local: envuelve updateStats,
+// que ya se llama tras cada cambio de XP, y sincroniza solo si el XP ha cambiado.
+try{
+  var fbOrigUpdateStats=window.updateStats;
+  if(typeof fbOrigUpdateStats==="function"){
+    window.updateStats=function(){
+      fbOrigUpdateStats();
+      try{fbSyncXp();fbRenderRank();}catch(e){}
+    };
+  }
+}catch(e){}
+function fbInit(){
+  fbRenderRank();
+  try{
+    if(typeof firebase==="undefined"||!firebase.initializeApp)throw new Error("Firebase no cargó");
+    firebase.initializeApp(firebaseConfig);
+    fbDb=firebase.database();
+    var auth=firebase.auth();
+    try{
+      fbDb.ref(".info/connected").on("value",function(s){
+        fbSetStatus(s.val()?"Conectado":"Sin conexión");
+      },function(){fbSetStatus("Sin conexión")});
+    }catch(e){}
+    auth.onAuthStateChanged(function(user){
+      if(user){
+        fbUid=user.uid;fbCode=fbCodeFromUid(user.uid);fbUpdateProfileUI();
+        fbDb.ref("ikasi/users/"+fbUid).once("value").then(function(snap){
+          var u=snap.val();
+          if(u&&u.name){
+            fbName=u.name;fbProfileReady=true;
+            fbUpdateProfileUI();fbStartFriends();fbSyncXp();fbRenderRank();
+          }else{
+            var m=$("fbNickModal");if(m)m.classList.remove("hidden");
+            fbRenderRank();
+          }
+        }).catch(function(){
+          fbSetStatus("Sin conexión: no se pudo cargar tu perfil. Las lecciones siguen disponibles.");
+          fbRenderRank();
+        });
+      }else{
+        auth.signInAnonymously().catch(function(){
+          fbSetStatus("Sin conexión: amigos y clasificación no disponibles. Las lecciones siguen disponibles.");
+        });
+      }
+    });
+  }catch(e){
+    fbSetStatus("Sin conexión: amigos y clasificación no disponibles. Las lecciones siguen disponibles.");
+  }
+}
+fbInit();
+})();
+</script>
+<!-- /FIREBASE: amigos y clasificación -->
+</body>
+</html>
