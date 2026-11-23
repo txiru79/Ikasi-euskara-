@@ -4,7 +4,10 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="color-scheme" content="light dark"/>
-<link rel="icon" href="data:,"/>
+<link rel="icon" href="icon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="icon.svg"/>
+<link rel="manifest" href="manifest.webmanifest"/>
+<meta name="theme-color" content="#16211a"/>
 <title>Ikasi Euskara — De A1 a B2.2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
@@ -454,5 +457,6 @@ fbInit();
 })();
 </script>
 <!-- /FIREBASE: amigos y clasificación -->
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})})}</script>
 </body>
 </html>
