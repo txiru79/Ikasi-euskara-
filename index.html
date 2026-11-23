@@ -388,6 +388,7 @@ window.fbAddFriend=function(){
       if(!snap.exists()){fbSetMsg("Código no encontrado.");return}
       var fid=snap.val();
       if(fid===fbUid){fbSetMsg("Ese es tu propio código.");return}
+      if(fbFriends[fid]){fbSetMsg("Ya tienes a este amigo añadido.");return}
       fbDb.ref("ikasi/users/"+fid).once("value").then(function(usnap){
         var u=usnap.val()||{};var fname=u.name||"Amigo";var date=new Date().toISOString();
         var mine={};mine[fid]={name:fname,date:date};
