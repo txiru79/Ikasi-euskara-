@@ -235,7 +235,8 @@ function fillVoices(){const s=document.getElementById('voiceSel');if(!s)return;l
 function setVoice(n){if(n)localStorage.setItem('ikasiVoice',n);else localStorage.removeItem('ikasiVoice');testVoice()}
 function testVoice(){speak('Kaixo, euskara ikasten ari naiz')}
 if('speechSynthesis' in window){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=fillVoices;fillVoices();setTimeout(fillVoices,1500)}
-function setMode(m){mode=m;document.getElementById('btnAdult').classList.toggle('active',m==='adult');document.getElementById('btnKids').classList.toggle('active',m==='kids');document.getElementById('modeHint').textContent=m==='kids'?"Modo niños: empieza por A1 (saludos, números, colores, familia). Los verbos y B2 son para adultos.":"Modo adultos: camino completo A1–B2.2 con gramática y verbos.";document.body.classList.toggle('kids',m==='kids');renderAll()}
+function setMode(m){mode=m;try{localStorage.setItem('ikasiMode',m)}catch(e){}document.getElementById('btnAdult').classList.toggle('active',m==='adult');document.getElementById('btnKids').classList.toggle('active',m==='kids');document.getElementById('modeHint').textContent=m==='kids'?"Modo niños: empieza por A1 (saludos, números, colores, familia). Los verbos y B2 son para adultos.":"Modo adultos: camino completo A1–B2.2 con gramática y verbos.";document.body.classList.toggle('kids',m==='kids');renderAll()}
+try{var _sm=localStorage.getItem('ikasiMode');if(_sm==='kids')setMode('kids')}catch(e){}
 function setFilter(f,btn){levelFilter=f;document.querySelectorAll('#filters button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');renderAll()}
 function filteredIds(){return ORDER.filter(id=>{const l=L[id];if(levelFilter==='all')return true;if(levelFilter==='verbos')return l.type==='verbos';if(levelFilter==='egiturak')return l.type==='egitura';return l.level===levelFilter})}
 function renderAll(){renderRoadmap();renderLevels();renderVocab()}
