@@ -116,6 +116,7 @@ body.kids .opt{font-size:19px;padding:19px}body.kids .qMain{font-size:38px}
 
   <h2 style="margin:34px 0 4px;font-family:'Baloo 2';font-size:26px">Consulta rápida</h2>
   <p style="color:var(--muted);font-weight:700;margin:0">Todas las palabras, verbos y frases del nivel que estás viendo. Toca 🔊 para escuchar.</p>
+  <div style="display:flex;gap:8px;align-items:center;margin:12px 0 4px;flex-wrap:wrap"><label for="voiceSel" style="font-weight:700">Voz:</label><select id="voiceSel" onchange="setVoice(this.value)" style="padding:8px 10px;border:2px solid var(--line);border-radius:12px;background:var(--bg);font-family:inherit;font-weight:700;font-size:15px;color:inherit;max-width:220px"></select><button onclick="testVoice()" style="padding:8px 14px;border:2px solid var(--line);border-radius:12px;background:var(--bg);font-family:inherit;font-weight:700;font-size:15px;cursor:pointer">🔊 Probar</button></div>
   <div class="vocabGrid" id="vocabGrid"></div>
 
   <!-- FIREBASE: amigos y clasificación -->
@@ -223,8 +224,13 @@ let mode="adult",levelFilter="all";
 let state={xp:0,hearts:5,streak:0,completed:{}};
 let currentLesson=null,exercises=[],exIndex=0,selected=null,lessonXP=0,lessonCorrect=0,matchedPairs=0,matchSel=null;
 function shuffle(a){return [...a].sort(()=>Math.random()-0.5)}
-function speak(t){try{const u=new SpeechSynthesisUtterance(t);u.lang="eu-ES";u.rate=.85;const v=speechSynthesis.getVoices();const eu=v.find(x=>x.name&&x.name.toLowerCase().includes("antton"))||v.find(x=>x.lang&&x.lang.toLowerCase().startsWith("eu"));if(eu)u.voice=eu;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
-if('speechSynthesis' in window)speechSynthesis.getVoices();
+function euVoices(){return ('speechSynthesis' in window)?speechSynthesis.getVoices().filter(x=>x.lang&&x.lang.toLowerCase().startsWith('eu')):[]}
+function pickVoice(){const vs=euVoices();const saved=localStorage.getItem('ikasiVoice')||'';return vs.find(x=>x.name===saved)||vs.find(x=>x.name&&x.name.toLowerCase().includes('antton'))||vs[0]||null}
+function speak(t){try{const u=new SpeechSynthesisUtterance(t);u.lang="eu-ES";u.rate=.85;const v=pickVoice();if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function fillVoices(){const s=document.getElementById('voiceSel');if(!s)return;const vs=euVoices();const saved=localStorage.getItem('ikasiVoice')||'';const esc=n=>n.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');s.innerHTML='<option value="">Automática</option>'+vs.map(v=>`<option value="${esc(v.name)}"${v.name===saved?' selected':''}>${esc(v.name)}</option>`).join('')}
+function setVoice(n){if(n)localStorage.setItem('ikasiVoice',n);else localStorage.removeItem('ikasiVoice');testVoice()}
+function testVoice(){speak('Kaixo, euskara ikasten ari naiz')}
+if('speechSynthesis' in window){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=fillVoices;fillVoices()}
 function setMode(m){mode=m;document.getElementById('btnAdult').classList.toggle('active',m==='adult');document.getElementById('btnKids').classList.toggle('active',m==='kids');document.getElementById('modeHint').textContent=m==='kids'?"Modo niños: empieza por A1 (saludos, números, colores, familia). Los verbos y B2 son para adultos.":"Modo adultos: camino completo A1–B2.2 con gramática y verbos.";document.body.classList.toggle('kids',m==='kids');renderAll()}
 function setFilter(f,btn){levelFilter=f;document.querySelectorAll('#filters button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');renderAll()}
 function filteredIds(){return ORDER.filter(id=>{const l=L[id];if(levelFilter==='all')return true;if(levelFilter==='verbos')return l.type==='verbos';if(levelFilter==='egiturak')return l.type==='egitura';return l.level===levelFilter})}
